@@ -1,1 +1,0 @@
-Bijgewerkte versie: persoonlijkere tekst, aanmeldformulier onderaan, omkeerbare scroll-animaties. Het formulier is nog een demo en slaat geen gegevens op.
