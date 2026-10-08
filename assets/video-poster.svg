@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs><radialGradient id="glow"><stop stop-color="#b38b513d"/><stop offset="1" stop-color="#071b2900"/></radialGradient></defs>
+  <rect width="1600" height="900" fill="#071b29"/>
+  <ellipse cx="1390" cy="720" rx="820" ry="580" fill="url(#glow)"/>
+  <ellipse cx="1580" cy="990" rx="750" ry="590" fill="none" stroke="#d8bc8d" stroke-opacity=".6"/>
+  <ellipse cx="1580" cy="990" rx="820" ry="660" fill="none" stroke="#d8bc8d" stroke-opacity=".16"/>
+  <ellipse cx="1580" cy="990" rx="650" ry="490" fill="none" stroke="#d8bc8d" stroke-opacity=".16"/>
+  <text x="130" y="200" fill="#c0cdd3" font-family="Arial,sans-serif" font-size="20" letter-spacing="5">HET VERHAAL VAN BESTEMD</text>
+  <text x="130" y="352" fill="#f4f1ea" font-family="Arial,sans-serif" font-size="96" letter-spacing="-5">Dit is nog maar</text>
+  <text x="130" y="473" fill="#d8bc8d" font-family="Georgia,serif" font-style="italic" font-size="118" letter-spacing="-4">het begin.</text>
+  <text x="130" y="818" fill="#b3c7d0" font-family="Arial,sans-serif" font-size="19" letter-spacing="4">RUST &amp; VERTROUWEN</text>
+  <text x="1245" y="818" fill="#d8bc8d" font-family="Arial,sans-serif" font-size="19" letter-spacing="4">BESTEMD.</text>
+</svg>
