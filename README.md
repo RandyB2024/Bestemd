@@ -9,7 +9,7 @@ geschikt voor GitHub Pages. Geen frameworks, buildstap, externe fonts of product
 1. Opening: verandering, Bestemd en begin 2027 meteen zichtbaar, zonder verplichte intro.
 2. Dagelijkse realiteit: vijf typografische woorden, met een korte desktop-scrollsequentie.
 3. Het kan anders: rust, inzicht en vooruitgang; calculator optioneel uitklapbaar.
-4. Mijn Bestemd: leesbare fictieve cijfers en twee bekijkbare conceptweergaven.
+4. Mijn Bestemming: de aangeleverde portaalafbeelding met een link naar volledig formaat.
 5. Het menselijke vertrekpunt: jouw leven, KISS en het financiële ABC.
 6. De originele promotiefilm, met een eigen premièreposter en native bediening.
 7. Begin 2027: een rustige horizon, geen countdown naar een verzonnen datum.
@@ -31,7 +31,8 @@ Deze positionering is door de opdrachtgever aangeleverd en wordt als visie gepre
 
 - index.html: acht scènes, semantiek en launchmetadata.
 - styles.css: nachtblauw/licht-regie, merkplaten en afzonderlijke mobiele compositie.
-- script.js: event-driven scroll, navigatie, conceptweergaven, video, calculator, formulier.
+- script.js: event-driven scroll, navigatie, afbeeldingspreview, video, calculator, formulier.
+- assets/portal-preview.png: ongewijzigde, door de opdrachtgever aangeleverde preview.
 - assets/logo.webp en assets/bestemd-film.mp4: ongewijzigde originele media.
 - assets/video-poster.svg: lokale poster; de MP4 heeft preload=none.
 - assets/launch-social.svg en .png: eigen lichte Open Graph-compositie (1200 × 630).

@@ -11,7 +11,7 @@ Uitgevoerd op 8 oktober 2026 in Google Chrome en Microsoft Edge (headless).
 - Mobiel menu: openen, Escape, focus terug naar menuknop en sluiten bij navigatie.
 - Desktop-scrolldrama: vooruit en terug naar dezelfde positie geven exact dezelfde
   woordkleuren en transformaties. Alle woorden blijven zichtbaar. Mobiel heeft geen pin.
-- Portaal: twee fictieve weergaven, met toetsenbord bedienbaar. Geen schijnportaalacties.
+- Portaal bijgewerkt: aangeleverde originele PNG, responsief en lazy-loaded; volledig formaat via een echte link.
 - Logo: originele kleuren, geen filter/transparantie, op een opaak licht merkvlak.
 - Visie: leven als vertrekpunt, KISS en de drie ABC-onderdelen aanwezig.
 - Calculator uitklapbaar: standaard 6 uur × 40% geeft 2,4 uur/week, 10,4 uur/maand
@@ -23,7 +23,7 @@ Uitgevoerd op 8 oktober 2026 in Google Chrome en Microsoft Edge (headless).
 - Geen JavaScript-fouten, mislukte assetverzoeken of externe netwerkverzoeken.
 - Reduced motion en handmatige bewegingsschakelaar: animaties en pin uitgeschakeld.
   Ook wijzigen van de systeemvoorkeur tijdens gebruik getest.
-- Zonder JS: navigatie, alle scènes, beide portaalweergaven en native video bereikbaar.
+- Zonder JS: navigatie, alle scènes, de portaalpreview en native video bereikbaar.
   Formulierknop is uitgeschakeld; Enter verzendt geen gegevens.
 
 ## Vertraagde mobiele labmeting
@@ -49,3 +49,7 @@ en bevestigde bedrijfs-/contactgegevens moeten worden toegevoegd voordat registr
 
 Reproduceerbaar via tests/browser.cjs; screenshots en cinematic-test-results.json
 worden naar TEST_OUTPUT geschreven.
+
+De zelfgemaakte portaalinterface is vervangen door de afbeelding van de opdrachtgever.
+De bovenstaande performancecijfers zijn van vóór deze mediawijziging; de nieuwe PNG
+is circa 1,82 MB en laadt pas nabij de previewsectie.

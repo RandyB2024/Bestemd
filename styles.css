@@ -195,6 +195,11 @@ html[data-motion=on] .device-reveal { transform: translateY(calc((1 - var(--reve
 .portal-notes strong { display: block; font-size: 12px; font-weight: 500; margin-top: 3px; }
 .device-bottom { display: flex; justify-content: center; align-items: center; gap: 9px; padding: 13px 20px; border-top: 1px solid #d1dcd5; font-size: 10px; color: #4c625a; }
 .device-bottom .signal { background: #3c6962; box-shadow: none; width: 5px; height: 5px; }
+.portal-image-link { display: block; line-height: 0; }
+.portal-image-link:focus-visible { outline-offset: -5px; }
+.portal-image { display: block; width: 100%; height: auto; }
+.device-bottom { flex-wrap: wrap; }
+.device-bottom > a { margin-left: auto; min-height: 36px; display: inline-flex; align-items: center; text-underline-offset: 4px; }
 .portal-caption { color: #b0c2cc; text-align: center; font-size: 11px; margin: 30px auto 0; }
 .document-panel { padding-top: 26px; }
 .document-panel h4 { font-size: 18px; font-weight: 600; }

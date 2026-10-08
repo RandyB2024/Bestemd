@@ -49,21 +49,6 @@
   calculate();
   document.querySelector('#year').textContent = new Date().getFullYear();
 
-  // Accessible disclosure buttons: both static panels are available without JS.
-  const previewButtons = [...document.querySelectorAll('[data-panel]')];
-  function selectPreview(selected) {
-    previewButtons.forEach(button => {
-      const active = button === selected;
-      button.setAttribute('aria-expanded', String(active));
-      document.getElementById(button.dataset.panel).hidden = !active;
-    });
-  }
-  previewButtons.forEach(button => {
-    button.addEventListener('click', () => selectPreview(button));
-    button.hidden = false;
-  });
-  selectPreview(previewButtons[0]);
-
   // The original video is never fetched until the visitor requests playback.
   const video = document.querySelector('video');
   const playButton = document.querySelector('.film-play');

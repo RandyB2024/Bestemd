@@ -103,12 +103,15 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'), 'false');
     await page.locator('.menu-toggle').click(); await page.locator('#navigation a[href="#toekomst"]').click();
     assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'), 'false');
-    await page.locator('#tab-documents').click();
-    assert.equal(await page.locator('#panel-documents').isVisible(), true);
-    assert.equal(await page.locator('#panel-overview').isVisible(), false);
-    await page.locator('#tab-overview').focus(); await page.keyboard.press('Enter');
-    assert.equal(await page.locator('#panel-overview').isVisible(), true);
-    results.push('Mobile navigation, Escape, anchor close and keyboard-operated concept panels passed.');
+    await page.locator('.portal-image').scrollIntoViewIfNeeded();
+    await page.waitForFunction(() => document.querySelector('.portal-image').naturalWidth === 1672);
+    const popupPromise = page.waitForEvent('popup');
+    await page.locator('.portal-image-link').click();
+    const popup = await popupPromise;
+    await popup.waitForLoadState();
+    assert.ok(popup.url().endsWith('/assets/portal-preview.png'));
+    await popup.close();
+    results.push('Mobile navigation and original supplied preview verified; full-size image opens in a new tab.');
 
     await page.locator('#tijdwinst > summary').click();
     assert.deepEqual(await page.locator('.results strong').allTextContents(), ['2,4','10,4','124,8']);
@@ -164,11 +167,11 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     await nojs.goto(url);
     assert.equal(await nojs.locator('#navigation').isVisible(), true);
     assert.equal(await nojs.locator('#submit-button').isDisabled(), true);
-    assert.equal(await nojs.locator('#panel-documents').isVisible(), true);
+    assert.equal(await nojs.locator('.portal-image').isVisible(), true);
     assert.equal(await nojs.locator('.problem-stage').evaluate(el => getComputedStyle(el).position), 'static');
     await nojs.locator('#name').fill('Test'); await nojs.locator('#name').press('Enter');
     assert.equal(nojs.url(), url + '/');
-    results.push('Without JS: all scenes and both concept panels readable, navigation visible, no pinned section or form submission.');
+    results.push('Without JS: all scenes and supplied preview readable, navigation visible, no pinned section or form submission.');
 
     // A reproducible lab check, not field Core Web Vitals or a physical phone test.
     const slow = await browser.newPage({ viewport: { width: 390, height: 844 } });

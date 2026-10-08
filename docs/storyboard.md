@@ -29,12 +29,11 @@ native details-element en houdt de spanningsopbouw compact. Aannames blijven zic
 
 ## 04 — De onthulling
 
-Een lokale HTML-interface schuift maximaal 35px en schaalt van 96,5 naar 100 procent.
-Mobiel: uitsluitend maximaal 12px verschuiving. Tekst blijft leesbaar. Financieel overzicht
-of documenten/contact is te bekijken via echte knoppen met aria-controls/expanded.
-De panels zijn expliciet fictief en hebben geen werkende portaalacties.
-De grafiek gebruikt een schaal tot 30.000 euro en passende waarden, inclusief juni
-24.800 euro omzet en 12.450 euro kosten. Geen willekeurige percentages of winstclaims.
+De door de opdrachtgever aangeleverde preview van Mijn Bestemming vervangt de zelfgemaakte
+HTML-interface volledig. De afbeelding is ongewijzigd, responsive en lazy-loaded, met
+vaste afmetingen om layoutverspringing te voorkomen. Een link opent het origineel op
+volledig formaat in een nieuw tabblad, ook zonder JavaScript. De bestaande rustige
+scrollonthulling blijft behouden. De sectie blijft expliciet een conceptpreview.
 
 ## 05 — De mens en de bestemming
 
@@ -68,5 +67,5 @@ Geen animatiebibliotheek, webfont, backgroundvideo of generatieve afbeelding.
 Eén event-driven requestAnimationFrame; geometrie eerst lezen, daarna stijlen schrijven.
 IntersectionObserver beperkt werk tot nabije scènes. Geen permanent render-loop.
 Systeemvoorkeur voor reduced motion wordt ook tijdens gebruik gevolgd. Zonder JS zijn
-alle scènes, beide portaalpanelen, native video en uitklapbare calculatorinformatie zichtbaar.
+alle scènes, de portaalafbeelding, native video en uitklapbare calculatorinformatie zichtbaar.
 De mobiele navigatie gebruikt een noscript-fallback zonder initiële layoutverspringing.
