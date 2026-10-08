@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bestemd interest submission — future backend contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "email", "permission", "website", "privacyVersion"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1, "maxLength": 100, "pattern": "\\S" },
+    "company": { "type": "string", "maxLength": 150 },
+    "email": { "type": "string", "format": "email", "maxLength": 254 },
+    "phone": { "type": "string", "maxLength": 40 },
+    "message": { "type": "string", "maxLength": 2000 },
+    "permission": { "const": true },
+    "website": { "const": "" },
+    "privacyVersion": { "type": "string", "minLength": 1, "maxLength": 100 }
+  }
+}
