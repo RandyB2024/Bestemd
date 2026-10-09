@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs><radialGradient id="light"><stop stop-color="#b38b5140"/><stop offset="1" stop-color="#071b2900"/></radialGradient></defs>
+  <rect width="1200" height="630" fill="#071b29"/>
+  <ellipse cx="1000" cy="440" rx="650" ry="370" fill="url(#light)"/>
+  <ellipse cx="1160" cy="640" rx="570" ry="330" fill="none" stroke="#d8bc8d" stroke-opacity=".6"/>
+  <ellipse cx="1160" cy="640" rx="640" ry="390" fill="none" stroke="#d8bc8d" stroke-opacity=".15"/>
+  <text x="85" y="105" fill="#f4f1ea" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="3">BESTEMD.</text>
+  <text x="85" y="280" fill="#f4f1ea" font-family="Arial,sans-serif" font-size="77" letter-spacing="-4">Een nieuw</text>
+  <text x="85" y="373" fill="#d8bc8d" font-family="Georgia,serif" font-style="italic" font-size="88" letter-spacing="-3">hoofdstuk.</text>
+  <text x="85" y="500" fill="#d8bc8d" font-family="Arial,sans-serif" font-size="22" letter-spacing="5">BEGIN 2027</text>
+  <text x="85" y="553" fill="#b3c7d0" font-family="Arial,sans-serif" font-size="20">Een nieuwe bestemming voor jouw administratie.</text>
+</svg>
