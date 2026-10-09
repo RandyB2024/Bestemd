@@ -1,55 +1,26 @@
-# Kwaliteitscontrole — Bestemd cinematic launch
+# Kwaliteitscontrole — frisse Bestemd-website
 
-Uitgevoerd op 8 oktober 2026 in Google Chrome en Microsoft Edge (headless).
+9 oktober 2026. Google Chrome en Microsoft Edge, geautomatiseerde browsercontrole en visuele inspectie.
 
-## Functioneel en responsive
+- Alle acht secties op 320, 375, 390, 580, 768, 850, 1024, 1440 en 1920px: geen overflow.
+- Desktop- en mobiele screenshots bekeken; originele kleurenlogo zonder filters.
+- Navigatie, toetsenbord/Escape, interne links en lokale assets werken.
+- Aangeleverde portaalafbeelding laadt en opent correct op volledig formaat.
+- Scrollonthulling is omkeerbaar. Geen vastgezette secties.
+- Calculator: standaardwaarden, nul, maximum en fractionele waarden correct.
+- Formulier: lege/ongeldige invoer, toestemming en honeypot gecontroleerd; geen
+  verzending, lokale opslag of valse succesmelding bij geldige invoer.
+- Originele video daadwerkelijk afgespeeld: 65,97s, 910 × 512 pixels. Geen MP4-download
+  vóór afspelen, ook niet na scrollen langs de videosectie.
+- Geen JS-fouten, mislukte assets of externe verzoeken.
+- Reduced motion, handmatig uitzetten en de no-JS-fallback gecontroleerd.
+- Vertraagde mobiele Chrome-labtest: 6× CPU, 1,6Mbps en 150ms latency. CLS 0,
+  LCP circa 2,89s in Chrome en 2,50s in Edge; circa 98kB initiële overdracht. Beide hadden CLS 0. Dit zijn labwaarden, geen veld-CWV.
 
-- Acht scènes, met Bestemd en de geplande introductie begin 2027 direct in de opening.
-- Alle scènes op 320, 375, 390, 580, 768, 850, 1024, 1440 en 1920px gecontroleerd:
-  geen horizontale overflow. Desktop- en mobiele screenshots gemaakt en bekeken.
-- Alle navigatiedoelen en lokale assets gecontroleerd, inclusief social image en poster.
-- Mobiel menu: openen, Escape, focus terug naar menuknop en sluiten bij navigatie.
-- Desktop-scrolldrama: vooruit en terug naar dezelfde positie geven exact dezelfde
-  woordkleuren en transformaties. Alle woorden blijven zichtbaar. Mobiel heeft geen pin.
-- Portaal bijgewerkt: aangeleverde originele PNG, responsief en lazy-loaded; volledig formaat via een echte link.
-- Logo: originele kleuren, geen filter/transparantie, op een opaak licht merkvlak.
-- Visie: leven als vertrekpunt, KISS en de drie ABC-onderdelen aanwezig.
-- Calculator uitklapbaar: standaard 6 uur × 40% geeft 2,4 uur/week, 10,4 uur/maand
-  en 124,8 uur/jaar. Ook nul, maximum en fractionele invoer gecontroleerd.
-- Formulier: leeg, spaties, ongeldig e-mailadres, toestemming, geldige preview en
-  honeypot getest. Geen verzending, opslag of valse aanmeldbevestiging.
-- Film via afspeelknop daadwerkelijk afgespeeld: 65,97 seconden, 910 × 512 pixels.
-  Geen MP4-download vóór afspelen, ook niet tijdens scrollen langs de film.
-- Geen JavaScript-fouten, mislukte assetverzoeken of externe netwerkverzoeken.
-- Reduced motion en handmatige bewegingsschakelaar: animaties en pin uitgeschakeld.
-  Ook wijzigen van de systeemvoorkeur tijdens gebruik getest.
-- Zonder JS: navigatie, alle scènes, de portaalpreview en native video bereikbaar.
-  Formulierknop is uitgeschakeld; Enter verzendt geen gegevens.
+Geen fysieke Safari- of screenreaderaudit. Gecontroleerde ondertiteling/audiodescriptie
+ontbreekt. Backend, privacyverklaring en bevestigde contactgegevens zijn vereist voor
+werkelijke registratie. De PNG-preview is 1,82 MB en wordt lazy-loaded.
 
-## Vertraagde mobiele labmeting
-
-Viewport 390 × 844, CPU 6× vertraagd, download 1,6 Mbit/s, latency 150ms.
-Chrome na de navigatiefix: CLS 0; LCP circa 2,09 seconden.
-Edge, definitieve merkplaat: CLS 0; LCP circa 2,55 seconden; initiële overdracht
-circa 114 kB inclusief HTML. Geen videoverzoek. Vier long tasks tijdens laden.
-
-De eerdere mobiele navigatieverspringing is opgelost met een statische CSS-basis
-plus noscript-fallback. Dit zijn losse labmetingen, geen veld-Core-Web-Vitals.
-De Edge-LCP ligt rond de grens van 2,5 seconden; echte apparaten en hosting kunnen afwijken.
-
-## Integriteit en beperkingen
-
-Origineel logo en MP4 zijn ongewijzigd. Geen externe productiedependencies toegevoegd.
-De actuele CNAME-configuratie op main is behouden; DNS/Cloudflare niet aangepast.
-
-Geen fysieke smartphone-, Safari- of screenreaderaudit uitgevoerd. Geen volledige
-WCAG 2.2 AA-conformiteitsclaim: geverifieerde ondertiteling/audiodescriptie ontbreekt.
-De backend bestaat nog niet; het contract staat in docs/form-integration.md. Privacy-
-en bevestigde bedrijfs-/contactgegevens moeten worden toegevoegd voordat registratie opent.
-
-Reproduceerbaar via tests/browser.cjs; screenshots en cinematic-test-results.json
-worden naar TEST_OUTPUT geschreven.
-
-De zelfgemaakte portaalinterface is vervangen door de afbeelding van de opdrachtgever.
-De bovenstaande performancecijfers zijn van vóór deze mediawijziging; de nieuwe PNG
-is circa 1,82 MB en laadt pas nabij de previewsectie.
+Publicatiecontrole staat los van de browser-QA. Bij aanvang toonde HTTP op het domein
+nog de oude homepage; HTTPS gaf een hostname mismatch voor het certificaat. DNS is
+niet gewijzigd. GitHub Pages moet de gecontroleerde versie vanaf main publiceren.

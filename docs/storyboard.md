@@ -1,71 +1,17 @@
-# Storyboard — Bestemd / begin 2027
+# Bezoekersreis — frisse Bestemd-website
 
-## Regie
+De nieuwe richting zet een echte financiële onderneming centraal in plaats van een
+lange filmintroductie. Licht, mintgroen en navy zorgen voor helderheid en herkenbaarheid.
 
-Van een nachtblauwe horizon via de drukte van de dagelijkse praktijk naar licht,
-financieel overzicht en een persoonlijk toekomstbeeld. De acht scènes blijven
-in een gewone semantische HTML-volgorde. De bezoeker bepaalt het tempo.
+1. Directe belofte: grip op geld, ruimte voor het leven; geplande introductie begin 2027.
+2. Concrete dienstverlening: boekhouding/belastingen, inzicht en persoonlijke richting.
+3. Voordelen: rust, inzicht en vooruitgang; optionele tijdwinstcalculator.
+4. De aangeleverde portaalpreview, ongewijzigd en op volledig formaat te openen.
+5. Persoonlijke visie: “Jij neemt je leven serieus. Wij dus ook.” KISS en het ABC.
+6. De originele promotiefilm, alleen afspelen op verzoek.
+7. Geplande introductie begin 2027, zonder verzonnen exacte datum.
+8. Interesseformulier onderaan, eerlijk gemarkeerd als niet-verzendende preview.
 
-## 01 — Opening
-
-Direct merk, onderwerp en introductieperiode. Grote typografie links; subtiele
-ellipsen en warm licht rechts. De originele logo-uiting op een opaak licht vlak,
-met afgeronde hoeken, warme rand en rustige schaduw. Geen transparantie of kleurfilter.
-De entree duurt circa 1,5 seconde, begint al leesbaar en blokkeert niets.
-
-## 02 — De realiteit
-
-Facturen, deadlines, administratie, belastingen, onduidelijkheid in een verspringende
-typografische compositie. Op ruime desktops staat de scène kort vast (195svh totale
-sectiehoogte). Een lichte horizontale verschuiving en kleuraccent volgen de scrollpositie.
-Woorden blijven altijd zichtbaar en leesbaar. Terugscrollen geeft exact dezelfde waarden.
-Mobiel heeft geen pin en slechts maximaal vier pixels horizontale beweging.
-
-## 03 — De omslag
-
-“Het kan anders” maakt plaats voor een warm lichte compositie. Rust, inzicht en
-vooruitgang staan in redactionele regels. Geen featurecards. De calculator zit in een
-native details-element en houdt de spanningsopbouw compact. Aannames blijven zichtbaar.
-
-## 04 — De onthulling
-
-De door de opdrachtgever aangeleverde preview van Mijn Bestemming vervangt de zelfgemaakte
-HTML-interface volledig. De afbeelding is ongewijzigd, responsive en lazy-loaded, met
-vaste afmetingen om layoutverspringing te voorkomen. Een link opent het origineel op
-volledig formaat in een nieuw tabblad, ook zonder JavaScript. De bestaande rustige
-scrollonthulling blijft behouden. De sectie blijft expliciet een conceptpreview.
-
-## 05 — De mens en de bestemming
-
-Het nieuwe vertrekpunt is het leven van de ondernemer. “Waar wil jij eigenlijk naartoe?”
-komt vóór de financiële aanpak. De opdrachtgeversvisie wordt integraal meegenomen:
-geen standaard administratiekantoor, wel ál je financiën; KISS en het ABC uit de coaching.
-A: evenwicht tussen inkomsten en uitgaven. B: buffer voor onvoorzien en zonder inkomen.
-C: waarde creëren in de onderneming en het mooiste droomleven.
-De warme compositie gebruikt typografie en ruimte in plaats van verzonnen portretten.
-
-## 06 — De film
-
-Eigen premièreposter met “Dit is nog maar het begin”. Een echte afspeelknop en native
-videobediening. De originele MP4 wordt niet vooraf gedownload. Fouten worden gemeld.
-Geen autoplay. De pagina en navigatie blijven gewoon bereikbaar tijdens afspelen.
-
-## 07 — De introductie
-
-2027 als monumentale typografie boven een subtiele horizon. “Gepland voor begin 2027”
-blijft zichtbaar. Er is geen exacte datum, aftelklok, kunstmatige urgentie of schaarste.
-
-## 08 — De uitnodiging
-
-Een persoonlijke uitnodiging, met naam, e-mail en optionele bedrijfsnaam. Previewstatus
-staat zowel vóór als na de knop. Geen verzending of lokale opslag. Backendvoorbereiding
-staat in een apart integratiecontract. De footer biedt ook een bewegingsschakelaar.
-
-## Performance en fallback
-
-Geen animatiebibliotheek, webfont, backgroundvideo of generatieve afbeelding.
-Eén event-driven requestAnimationFrame; geometrie eerst lezen, daarna stijlen schrijven.
-IntersectionObserver beperkt werk tot nabije scènes. Geen permanent render-loop.
-Systeemvoorkeur voor reduced motion wordt ook tijdens gebruik gevolgd. Zonder JS zijn
-alle scènes, de portaalafbeelding, native video en uitklapbare calculatorinformatie zichtbaar.
-De mobiele navigatie gebruikt een noscript-fallback zonder initiële layoutverspringing.
+Geen scroll-pinning, onzichtbare essentiële tekst, externe fonts of animatiebibliotheek.
+De portaalonthulling volgt de scrollpositie in beide richtingen. Reduced motion en de
+bewegingsschakelaar schakelen beweging uit. Zonder JS blijft de inhoud bruikbaar.

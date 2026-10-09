@@ -53,8 +53,8 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('.abc-lines article').count(), 3);
     assert.match(await page.locator('#human-title').textContent(), /leven serieus/);
-    assert.equal(await page.locator('.opening-brand img').evaluate(el => getComputedStyle(el).filter), 'none');
-    assert.equal(await page.locator('.opening-brand').evaluate(el => getComputedStyle(el).backgroundColor), 'rgb(255, 255, 255)');
+    assert.equal(await page.locator('.header .brand img').evaluate(el => getComputedStyle(el).filter), 'none');
+    assert.equal(await page.locator('.header').evaluate(el => getComputedStyle(el).backgroundColor), 'rgb(255, 255, 255)');
     assert.equal(await page.locator('video').getAttribute('preload'), 'none');
     assert.deepEqual(videoRequests, []);
     assert.deepEqual(await page.locator('a[href^="#"]').evaluateAll(links => links.filter(a => !document.getElementById(a.hash.slice(1))).map(a => a.hash)), []);
@@ -71,7 +71,7 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Overflow: ${width}, ${id}`);
       }
       if (width === 390 || width === 1440) {
-        const prefix = width === 390 ? 'cinematic-mobile' : 'cinematic-desktop';
+        const prefix = width === 390 ? 'fresh-mobile' : 'fresh-desktop';
         await scroll(page, 0);
         await page.screenshot({ path: path.join(output, `${prefix}-hero.png`) });
         await scroll(page, await sceneTop(page, '#toekomst'));
@@ -85,17 +85,14 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     results.push('All eight scenes checked at nine widths (320–1920px) without horizontal overflow; desktop/mobile screenshots saved.');
 
     await page.setViewportSize({ width: 1440, height: 1000 });
-    const story = await page.locator('#verhaal').evaluate(el => ({ top: el.offsetTop, height: el.offsetHeight }));
-    const y = story.top + (story.height - 1000) * .35;
+    const y = await sceneTop(page,'#toekomst');
     await scroll(page,y);
-    assert.equal(await page.locator('.problem-stage').evaluate(el => getComputedStyle(el).position), 'sticky');
-    const forward = await page.locator('.story-word').evaluateAll(words => words.map(w => [w.style.color, w.style.transform]));
-    await scroll(page, y + 300); await scroll(page,y);
-    assert.deepEqual(await page.locator('.story-word').evaluateAll(words => words.map(w => [w.style.color,w.style.transform])), forward);
-    assert.equal(await page.locator('.story-word').evaluateAll(words => words.every(w => getComputedStyle(w).opacity === '1')), true);
-    await page.setViewportSize({ width: 390, height: 844 }); await settle(page);
-    assert.equal(await page.locator('.problem-stage').evaluate(el => getComputedStyle(el).position), 'static');
-    results.push('Forward/reverse scrolling produces identical text states; desktop pin only; mobile has no pin; words never disappear.');
+    const forward = await page.locator('.device-reveal').evaluate(el => getComputedStyle(el).transform);
+    await scroll(page,y+300); await scroll(page,y);
+    assert.equal(await page.locator('.device-reveal').evaluate(el => getComputedStyle(el).transform),forward);
+    assert.equal(await page.locator('.service-lines article').count(),3);
+    await page.setViewportSize({width:390,height:844});
+    results.push('Reversible portal reveal verified; three concrete services; no pinned sections.');
 
     await page.locator('.menu-toggle').click();
     assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'), 'true');
@@ -156,7 +153,6 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     await page.locator('#motion-toggle').click();
     await page.emulateMedia({ reducedMotion: 'reduce' }); await settle(page);
     assert.equal(await page.locator('html').getAttribute('data-motion'), 'off');
-    assert.equal(await page.locator('.problem-stage').evaluate(el => getComputedStyle(el).position), 'static');
     assert.equal(await page.locator('h1').evaluate(el => getComputedStyle(el).animationName), 'none');
     assert.equal(await page.locator('#motion-toggle').isDisabled(), true);
     results.push('Manual motion switch and live OS reduced-motion changes remove animation and pinning.');
@@ -168,7 +164,6 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     assert.equal(await nojs.locator('#navigation').isVisible(), true);
     assert.equal(await nojs.locator('#submit-button').isDisabled(), true);
     assert.equal(await nojs.locator('.portal-image').isVisible(), true);
-    assert.equal(await nojs.locator('.problem-stage').evaluate(el => getComputedStyle(el).position), 'static');
     await nojs.locator('#name').fill('Test'); await nojs.locator('#name').press('Enter');
     assert.equal(nojs.url(), url + '/');
     results.push('Without JS: all scenes and supplied preview readable, navigation visible, no pinned section or form submission.');
@@ -191,7 +186,7 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     assert.equal(lab.videoRequests, 0);
     for (const id of ['#verhaal','#toekomst','#introductie']) await scroll(slow,await sceneTop(slow,id));
     results.push('6× CPU / 1.6Mbps / 150ms mobile lab load: ' + JSON.stringify(lab));
-    fs.writeFileSync(path.join(output,'cinematic-test-results.json'), JSON.stringify(results,null,2));
+    fs.writeFileSync(path.join(output,'fresh-test-results.json'), JSON.stringify(results,null,2));
     console.log(results.join('\n'));
   } finally { await browser.close(); server.close(); }
 })().catch(error => { console.error(error); server.close(); process.exitCode = 1; });

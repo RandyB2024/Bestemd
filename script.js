@@ -109,9 +109,7 @@
   // One event-driven animation frame, only for scenes near the viewport.
   // Every visual value is derived from position, never elapsed time or replay state.
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const pinQuery = matchMedia('(min-width: 901px) and (min-height: 700px)');
   const scenes = [...document.querySelectorAll('[data-scroll-scene]')];
-  const words = [...document.querySelectorAll('.story-word')];
   const device = document.querySelector('.device-reveal');
   const motionButton = document.querySelector('#motion-toggle');
   const activeScenes = new Set(scenes);
@@ -136,18 +134,7 @@
       if (scene.id === 'toekomst') {
         scene.style.setProperty('--reveal', clamp((viewport * .95 - rect.top - deviceOffset) / (viewport * .65)).toFixed(4));
       }
-      if (scene.id === 'verhaal') {
-        const story = pinQuery.matches
-          ? clamp((86 - rect.top) / Math.max(1, rect.height - viewport + 86))
-          : clamp((viewport * .7 - rect.top) / rect.height);
-        words.forEach((word, index) => {
-          const emphasis = Math.max(0, 1 - Math.abs(story * 5 - index) / 1.5);
-          const color = [155, 171, 180].map((base, i) => Math.round(base + ([244, 241, 234][i] - base) * emphasis));
-          const shift = (1 - emphasis) * (pinQuery.matches ? 12 : 4);
-          word.style.color = `rgb(${color.join(',')})`;
-          word.style.transform = `translateX(${shift.toFixed(2)}px)`;
-        });
-      }
+
     }
   }
   function requestRender() {
@@ -160,7 +147,6 @@
     motionButton.disabled = reducedMotion.matches;
     motionButton.textContent = reducedMotion.matches ? 'Beweging uit · systeemvoorkeur' : motionEnabled ? 'Beweging uitzetten' : 'Beweging aanzetten';
     if (!motionEnabled) {
-      words.forEach(word => { word.style.removeProperty('color'); word.style.removeProperty('transform'); });
       scenes.forEach(scene => { scene.style.removeProperty('--progress'); scene.style.removeProperty('--reveal'); });
     }
     requestRender();
