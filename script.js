@@ -208,6 +208,29 @@
     scenes.forEach(scene => observer.observe(scene));
   }
   syncMotion();
+  // Reveal KISS and each coaching step once, when the visitor reaches them.
+  const philosophyItems = [...document.querySelectorAll('.kiss-intro, .abc-lines article')];
+  function showPhilosophy() {
+    philosophyItems.forEach(item => item.classList.add('is-visible'));
+  }
+  if ('IntersectionObserver' in window && !reducedMotion.matches) {
+    const philosophyObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          philosophyObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .18 });
+    philosophyItems.forEach(item => {
+      item.classList.add('motion-ready');
+      philosophyObserver.observe(item);
+    });
+    reducedMotion.addEventListener('change', () => {
+      if (reducedMotion.matches) { showPhilosophy(); philosophyObserver.disconnect(); }
+    });
+  } else showPhilosophy();
+
   // A single short journey when the card enters view; no perpetual animation.
   const card = document.querySelector('.destination-art');
   const road = document.querySelector('.route-road');
