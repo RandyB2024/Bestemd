@@ -48,7 +48,7 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     });
     await page.goto(url);
     await page.waitForTimeout(1700);
-    assert.equal(await page.locator('main > section').count(), 8);
+    assert.equal(await page.locator('main > section').count(), 9);
     assert.match(await page.locator('.opening-date').textContent(), /begin 2027/);
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('.abc-lines article').count(), 3);
@@ -62,11 +62,11 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     const assets = await page.locator('[src], [poster], link[rel=stylesheet], link[rel=icon]').evaluateAll(elements => [...new Set(elements.flatMap(e => [e.getAttribute('src'), e.getAttribute('poster'), e.getAttribute('href')]).filter(Boolean))]);
     for (const asset of assets.filter(asset => !asset.endsWith('.mp4'))) assert.equal((await page.request.get(url + '/' + asset)).status(), 200, asset);
     assert.equal((await page.request.get(url + '/assets/launch-social.png')).status(), 200);
-    results.push('Eight scenes, launch period, anchor targets, canonical and local assets verified; no initial video download.');
+    results.push('Nine sections, launch period, anchor targets, canonical and local assets verified; no initial video download.');
 
     for (const width of [320,375,390,580,768,850,1024,1440,1920]) {
       await page.setViewportSize({ width, height: width < 600 ? 844 : 1000 });
-      for (const id of ['#home','#verhaal','#verandering','#toekomst','#visie','#film','#introductie','#contact']) {
+      for (const id of ['#home','#verhaal','#verandering','#toekomst','#visie','#film','#introductie','#vragen','#contact']) {
         await scroll(page, await sceneTop(page,id));
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Overflow: ${width}, ${id}`);
       }
@@ -82,7 +82,7 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
         await page.locator('#visie').screenshot({ path: path.join(output, `${prefix}-vision.png`) });
       }
     }
-    results.push('All eight scenes checked at nine widths (320–1920px) without horizontal overflow; desktop/mobile screenshots saved.');
+    results.push('All nine sections checked at nine widths (320–1920px) without horizontal overflow; desktop/mobile screenshots saved.');
 
     await page.setViewportSize({ width: 1440, height: 1000 });
     const y = await sceneTop(page,'#toekomst');
@@ -119,6 +119,13 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     await page.locator('#hours').fill('6'); await page.locator('#saving').fill('40');
     await page.locator('#tijdwinst > summary').click();
     results.push('Optional calculator: default, zero, maximum and fractional inputs passed.');
+
+    assert.equal(await page.locator('.working-steps li').count(), 3);
+    assert.equal(await page.locator('.faq-list details').count(), 6);
+    await page.locator('.faq-list summary').first().click();
+    assert.equal(await page.locator('.faq-list details').first().getAttribute('open'), '');
+    await page.locator('.faq-list summary').first().click();
+    results.push('Three collaboration steps and six native expandable FAQ answers verified.');
 
     await page.locator('#submit-button').click();
     assert.equal(await page.locator('#name').getAttribute('aria-invalid'), 'true');
