@@ -129,16 +129,66 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     await page.locator('#name').fill('Test ondernemer'); await page.locator('#email').fill('test@example.com');
     await page.locator('#submit-button').click();
     assert.equal(await page.locator('#permission').getAttribute('aria-invalid'), 'true');
-    await page.locator('#permission').check(); await page.locator('#submit-button').click();
-    assert.match(await page.locator('#form-status').textContent(), /niet verstuurd of opgeslagen/);
-    assert.match(await page.locator('#form-status').textContent(), /nog niet aangemeld/);
+    assert.deepEqual(submissions, []);
+    const endpoint = 'https://api.emailjs.com/api/v1.0/email/send';
+    let requests = [], mode = 'success', release;
+    await page.route(endpoint, async route => {
+      requests.push(route.request().postDataJSON());
+      if (mode === 'hold') await new Promise(resolve => { release = resolve; });
+      if (mode === 'offline') return route.abort('internetdisconnected');
+      await route.fulfill({ status: mode === 'rate' ? 429 : mode === 'error' ? 400 : 200,
+        contentType: 'text/plain', body: mode === 'malformed' ? 'unexpected' : 'OK' });
+    });
+    const fillForm = async () => {
+      await page.locator('#name').fill('Test ondernemer');
+      await page.locator('#email').fill('test@example.com');
+      await page.locator('#company').fill('Testbedrijf');
+      await page.locator('#permission').check();
+    };
+    const done = () => page.waitForFunction(() => document.querySelector('#aanmelden').getAttribute('aria-busy') === 'false');
+    await fillForm();
+    mode = 'hold';
+    await page.locator('#submit-button').click();
+    await page.waitForFunction(() => document.querySelector('#aanmelden').getAttribute('aria-busy') === 'true');
+    assert.equal(await page.locator('#submit-button').isDisabled(), true);
+    assert.equal(await page.locator('#name').isDisabled(), true);
+    await page.locator('#aanmelden').evaluate(el => el.dispatchEvent(new Event('submit', { cancelable: true })));
+    await page.waitForTimeout(100);
+    assert.equal(requests.length, 1);
+    assert.deepEqual(requests[0], {
+      service_id: 'service_j8pr0cj', template_id: 'template_w90ddwo', user_id: 'f81KMSvhtpl0TUM-6',
+      template_params: { name: 'Test ondernemer', email: 'test@example.com', company: 'Testbedrijf',
+        from_name: 'Test ondernemer', from_email: 'test@example.com', reply_to: 'test@example.com',
+        permission: 'Ja, ik wil per e-mail op de hoogte blijven van Bestemd.',
+        source: 'Bestemd website — interesse in introductie' }
+    });
+    release(); await done();
+    assert.match(await page.locator('#form-status').textContent(), /Bedankt! Je aanmelding is verstuurd/);
+    assert.equal(await page.locator('#name').inputValue(), '');
+    for (const scenario of ['rate', 'error', 'malformed', 'offline']) {
+      mode = scenario; await fillForm();
+      await page.locator('#submit-button').click(); await done();
+      assert.match(await page.locator('#form-status').textContent(), scenario === 'rate' ? /te veel aanvragen/ : /niet bevestig|niet worden bevestigd/);
+      assert.equal(await page.locator('#name').inputValue(), 'Test ondernemer');
+      assert.equal(await page.locator('#submit-button').isEnabled(), true);
+    }
+    // Advance the real browser timeout without waiting fifteen seconds.
+    await page.clock.install(); mode = 'hold';
+    await page.locator('#submit-button').click();
+    await page.waitForTimeout(100);
+    await page.clock.fastForward(16000); await done();
+    assert.match(await page.locator('#form-status').textContent(), /mogelijk al aangekomen/);
+    assert.equal(await page.locator('#email').inputValue(), 'test@example.com');
+    release(); await page.clock.resume();
+    const count = requests.length;
     await page.locator('#website').evaluate(el => { el.value = 'spam'; });
     await page.locator('#submit-button').click();
     assert.match(await page.locator('#form-status').textContent(), /niets verstuurd/);
-    assert.deepEqual(submissions, []);
+    assert.equal(requests.length, count);
+    assert.equal(count, 6);
     assert.equal(await page.evaluate(() => localStorage.length + sessionStorage.length), 0);
     assert.deepEqual(videoRequests, []);
-    results.push('Form: required fields, whitespace, email, consent, valid preview and honeypot passed; no submission, storage or false success. Video still not downloaded after scrolling.');
+    results.push('EmailJS mocked: exact credentials and template fields, validation, consent, confirmed success, double submit, 429, 400, malformed response, offline, timeout and honeypot passed. No real emails sent.');
 
     await page.locator('video').evaluate(v => { v.muted = true; });
     await page.locator('.film-play').click();
@@ -156,8 +206,8 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     assert.equal(await page.locator('h1').evaluate(el => getComputedStyle(el).animationName), 'none');
     assert.equal(await page.locator('#motion-toggle').isDisabled(), true);
     results.push('Manual motion switch and live OS reduced-motion changes remove animation and pinning.');
-    assert.deepEqual(errors, []); assert.deepEqual(badResponses, []); assert.deepEqual(external, []);
-    results.push('No console errors, failed resource responses or external requests.');
+    assert.deepEqual(errors, []); assert.deepEqual(badResponses.filter(u => u !== endpoint), []); assert.deepEqual(external.filter(u => u !== endpoint), []);
+    results.push('No JavaScript errors or unexpected failed resources/external requests; EmailJS requests were intercepted.');
 
     const nojs = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
     await nojs.goto(url);

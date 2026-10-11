@@ -1,55 +1,53 @@
-# Veilige formulierintegratie — nog niet geactiveerd
+# EmailJS-aanmeldformulier
 
-De huidige versie doet alleen lokale validatie. Geen fetch, cookies, localStorage,
-sessionStorage, analytics of verzending. De lanceringsknop heet “Houd mij op de hoogte”,
-met een direct erboven geplaatste, gekoppelde previewmelding: je wordt nog niet aangemeld.
-Ook na geldige invoer staat uitdrukkelijk dat er niets is verstuurd of opgeslagen.
-De honeypot is voorbereid; dit is geen vervanging voor server-side spambescherming.
-GitHub Pages kan zelf geen aanmeldingen verwerken.
+Het formulier verstuurt na validatie via HTTPS POST naar
+https://api.emailjs.com/api/v1.0/email/send (zonder SDK of productiedependencies).
+Configuratie in script.js:
 
-## Contract voor een toekomstige backend
+- Service: `service_j8pr0cj`
+- Template: `template_w90ddwo`
+- Public key / user_id: `f81KMSvhtpl0TUM-6`
 
-Implementeer een HTTPS POST-endpoint buiten GitHub Pages. Kies de leverancier en
-gegevensverwerking afzonderlijk; dit project introduceert geen betaalde dienst.
-Gebruik `docs/lead.schema.json` voor validatie van de JSON-body. Voorbeeld:
+De public key is bedoeld voor de browser. Er wordt geen private key gebruikt.
+De eigenaar beheert het mailontwerp in EmailJS; de website wijzigt dat niet.
 
-```json
-{
-  "name": "Voorbeeldondernemer",
-  "company": "Voorbeeldbedrijf",
-  "email": "ondernemer@example.com",
-  "permission": true,
-  "website": "",
-  "privacyVersion": "VERSIE-VAN-DE-GEPUBLICEERDE-VERKLARING"
-}
-```
+## Template instellen
 
-Server: valideer en trim alle velden opnieuw, begrens requestgrootte, pas rate limiting
-toe en controleer de honeypot. Controleer toegestane origins, bescherm cookie-authenticatie
-tegen CSRF indien van toepassing, gebruik TLS en bewaar secrets uitsluitend server-side.
-Log geen volledige berichten of persoonsgegevens. Bepaal toegang en bewaartermijnen.
-Leg de geaccepteerde privacyversie en servertijd vast; vertrouw niet op een clienttijd.
-Gebruik een idempotency key om dubbel verzenden bij retries te voorkomen.
+Stel in EmailJS de vaste ontvanger (To Email) in op het eigen zakelijke e-mailadres.
+Gebruik voor Reply To `{{reply_to}}`, zodat beantwoorden naar de aanmelder gaat.
+Gebruik het gekoppelde serviceadres als afzender; niet het bezoekersadres.
+Beschikbare variabelen:
 
-Retourneer pas HTTP 201 met `{ "accepted": true, "reference": "opaque-id" }` wanneer
-de aanmelding duurzaam is opgeslagen. Verstuur een eventuele bevestigingsmail vanuit
-de backend; presenteer mailbezorging niet als zeker op basis van een API-acceptatie.
-Validatiefouten: 422 met veldnamen en veilige foutcodes. Rate limit: 429 met Retry-After.
-Tijdelijke storing: 503. Geef nooit stacktraces of geheimen terug.
+| Variabele | Inhoud |
+| --- | --- |
+| `{{name}}` | Naam |
+| `{{email}}` | E-mailadres |
+| `{{company}}` | Bedrijfsnaam, leeg indien niet ingevuld |
+| `{{reply_to}}` | E-mailadres voor beantwoorden |
+| `{{from_name}}` / `{{from_email}}` | Aliassen van naam en e-mailadres |
+| `{{permission}}` | Toestemmingstekst voor updates |
+| `{{source}}` | Bestemd website — interesse in introductie |
 
-## Frontend activeren
+Gebruik gewone dubbel-geaccolade variabelen voor bezoekersinvoer, geen ongeëscapete HTML.
+Controleer dat de service verbonden is en de template is opgeslagen. Beperk toegestane
+origins in het EmailJS-dashboard tot de daadwerkelijk gebruikte website-origins.
+De frontend-honeypot en blokkering van dubbele submits zijn geen server-side spamfilter.
+De website beheert geen mailinglijst of automatische afmelding; antwoorden en afmeldingen
+worden door Bestemd verwerkt. Een ontvangstmail naar de aanmelder is niet toegevoegd.
 
-1. Publiceer de echte privacyverklaring, bevestigde bedrijfsgegevens en contactmogelijkheid.
-2. Vervang previewteksten en toestemming door de goedgekeurde live tekst met privacylink.
-   De lanceringsvariant vraagt naam, e-mailadres en optionele bedrijfsnaam. De optionele
-   phone/message-velden in het schema zijn alleen voor een latere uitgebreide contactvariant.
-3. Voeg POST-transport toe ná lokale validatie; houd de velden intact bij fouten.
-4. Zet de knop tijdens verzending op disabled en het formulier op aria-busy.
-5. Toon alleen na een gecontroleerde 201 + accepted:true een ontvangstbevestiging.
-6. Bij timeout: meld dat ontvangst niet bevestigd kon worden; gebruik dezelfde idempotency
-   key bij een retry. Bij 422/429/503: toon begrijpelijke fouten met herstelmogelijkheid.
-7. Test succes, servervalidatie, spam, dubbele klik, offline, timeout, malformed response,
-   rate limiting en serverstoring. Een generieke 200 of een resolved fetch is geen succesbewijs.
+## Gedrag en verificatie
 
-Het formulier blijft in preview totdat deze stappen zijn uitgevoerd. Er staat bewust
-geen invulbare endpoint-URL of API-sleutel in de productie-JavaScript.
+Alleen HTTP 200 met tekst `OK` geeft een bevestiging en wist de invoer. Dit bevestigt
+acceptatie door EmailJS, niet uiteindelijke inboxbezorging. Bij fouten blijven gegevens
+staan. Tijdens verzending zijn velden en knop geblokkeerd. Een timeout na 15 seconden
+meldt onzekere ontvangst en herhaalt niets automatisch. Geen persoonsgegevens in logs
+of browseropslag. Zonder JavaScript is verzenden uitgeschakeld.
+
+`tests/browser.cjs` onderschept alle EmailJS-verzoeken en test payload, succes, validatie,
+toestemming, dubbele submit, 400, 429, onverwachte response, offline, timeout en honeypot.
+Deze tests verzenden geen echte mail en verifiëren niet de accountconfiguratie of bezorging.
+Na het opslaan van het eigen mailontwerp kan de eigenaar één echte aanmelding controleren.
+
+API-contract: https://www.emailjs.com/docs/rest-api/send/
+Het oude lead.schema.json beschrijft een mogelijke eigen backend en wordt niet gebruikt
+voor deze EmailJS-integratie.
