@@ -158,7 +158,7 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     assert.deepEqual(requests[0], {
       service_id: 'service_j8pr0cj', template_id: 'template_w90ddwo', user_id: 'f81KMSvhtpl0TUM-6',
       template_params: { name: 'Test ondernemer', email: 'test@example.com', company: 'Testbedrijf',
-        from_name: 'Test ondernemer', from_email: 'test@example.com', reply_to: 'test@example.com',
+        from_name: 'Test ondernemer', from_email: 'test@example.com', to_email: 'test@example.com', reply_to: 'test@example.com',
         permission: 'Ja, ik wil per e-mail op de hoogte blijven van Bestemd.',
         source: 'Bestemd website — interesse in introductie' }
     });

@@ -13,8 +13,8 @@ De eigenaar beheert het mailontwerp in EmailJS; de website wijzigt dat niet.
 
 ## Template instellen
 
-Stel in EmailJS de vaste ontvanger (To Email) in op het eigen zakelijke e-mailadres.
-Gebruik voor Reply To `{{reply_to}}`, zodat beantwoorden naar de aanmelder gaat.
+Stel in EmailJS To Email in op `{{to_email}}`: dit is het ingevulde bezoekersadres.
+Let op: `reply_to` bevat momenteel eveneens het bezoekersadres. Stel Reply To in op het zakelijke antwoordadres zodra dat is bevestigd; dit adres is nog niet aangeleverd.
 Gebruik het gekoppelde serviceadres als afzender; niet het bezoekersadres.
 Beschikbare variabelen:
 
@@ -22,6 +22,7 @@ Beschikbare variabelen:
 | --- | --- |
 | `{{name}}` | Naam |
 | `{{email}}` | E-mailadres |
+| `{{to_email}}` | Ingevuld bezoekersadres voor de bevestigingsmail |
 | `{{company}}` | Bedrijfsnaam, leeg indien niet ingevuld |
 | `{{reply_to}}` | E-mailadres voor beantwoorden |
 | `{{from_name}}` / `{{from_email}}` | Aliassen van naam en e-mailadres |
@@ -33,7 +34,7 @@ Controleer dat de service verbonden is en de template is opgeslagen. Beperk toeg
 origins in het EmailJS-dashboard tot de daadwerkelijk gebruikte website-origins.
 De frontend-honeypot en blokkering van dubbele submits zijn geen server-side spamfilter.
 De website beheert geen mailinglijst of automatische afmelding; antwoorden en afmeldingen
-worden door Bestemd verwerkt. Een ontvangstmail naar de aanmelder is niet toegevoegd.
+worden door Bestemd verwerkt. De template stuurt de bevestiging naar de aanmelder. Een persoonlijke afmeldlink en database zijn nog niet aangesloten.
 
 ## Gedrag en verificatie
 
