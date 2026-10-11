@@ -204,6 +204,9 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     assert.equal(await page.locator('.film-play').isHidden(), true);
     results.push('Original video played via custom play button and native controls: ' + JSON.stringify(video));
 
+    for (const item of await page.locator('.kiss-intro, .abc-lines article').all()) { await item.scrollIntoViewIfNeeded(); await settle(page); }
+    assert.equal(await page.locator('.abc-lines article.is-visible').count(), 3);
+    assert.equal(await page.locator('.kiss-intro.is-visible').count(), 1);
     assert.equal(await page.locator('#motion-toggle').count(), 0);
     await scroll(page, 0);
     await page.waitForFunction(() => document.querySelector('.destination-art').classList.contains('route-arrived'));
