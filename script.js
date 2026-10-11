@@ -73,15 +73,17 @@
   });
   playButton.hidden = false;
 
-  // Preview only: no transport, secrets, cookies, analytics or persistent storage.
-  // The live backend contract is documented in docs/form-integration.md.
+  // EmailJS public browser credentials; template mapping: docs/form-integration.md.
   const form = document.querySelector('#aanmelden');
   const status = document.querySelector('#form-status');
+  const submitButton = document.querySelector('#submit-button');
+  const fields = form.querySelector('fieldset');
+  let sending = false;
   function validate(field) {
     let message = '';
     if (field.id === 'name' && !field.value.trim()) message = 'Vul je naam in.';
     if (field.id === 'email' && !field.validity.valid) message = 'Vul een geldig e-mailadres in, bijvoorbeeld naam@bedrijf.nl.';
-    if (field.id === 'permission' && !field.checked) message = 'Vink de toestemming aan om deze formuliercontrole te voltooien.';
+    if (field.id === 'permission' && !field.checked) message = 'Geef toestemming om per e-mail op de hoogte te blijven.';
     document.getElementById(field.id + '-error').textContent = message;
     field.setAttribute('aria-invalid', String(Boolean(message)));
     return !message;
@@ -90,10 +92,11 @@
   requiredFields.forEach(field => field.addEventListener('input', () => {
     if (field.getAttribute('aria-invalid') === 'true') validate(field);
   }));
-  form.addEventListener('submit', event => {
+  form.addEventListener('submit', async event => {
     event.preventDefault();
+    if (sending) return;
     if (form.elements.website.value) {
-      status.textContent = 'Er is niets verstuurd. Dit formulier is een preview.';
+      status.textContent = 'Er is niets verstuurd. Vernieuw de pagina en probeer het opnieuw.';
       return;
     }
     const invalid = requiredFields.filter(field => !validate(field));
@@ -102,9 +105,52 @@
       invalid[0].focus();
       return;
     }
-    status.textContent = 'Je invoer is gecontroleerd, maar niet verstuurd of opgeslagen. Je bent nog niet aangemeld. Registratie voor de introductie opent later.';
+    const name = form.elements.name.value.trim();
+    const email = form.elements.email.value.trim();
+    const payload = {
+      service_id: 'service_j8pr0cj',
+      template_id: 'template_w90ddwo',
+      user_id: 'f81KMSvhtpl0TUM-6',
+      template_params: {
+        name, email, company: form.elements.company.value.trim(),
+        from_name: name, from_email: email, reply_to: email,
+        permission: 'Ja, ik wil per e-mail op de hoogte blijven van Bestemd.',
+        source: 'Bestemd website — interesse in introductie'
+      }
+    };
+    sending = true;
+    submitButton.disabled = true;
+    fields.disabled = true;
+    form.setAttribute('aria-busy', 'true');
+    status.textContent = 'Je aanmelding wordt verstuurd…';
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    try {
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload), signal: controller.signal,
+        credentials: 'omit', referrerPolicy: 'strict-origin-when-cross-origin'
+      });
+      const body = await response.text();
+      if (response.status === 200 && body.trim() === 'OK') {
+        form.reset();
+        status.textContent = 'Bedankt! Je aanmelding is verstuurd. We houden je per e-mail op de hoogte van Bestemd.';
+      } else if (response.status === 429) {
+        status.textContent = 'Er zijn te veel aanvragen tegelijk. Wacht even en probeer het opnieuw. Je invoer blijft staan.';
+      } else {
+        status.textContent = 'Je aanmelding kon niet worden bevestigd. Probeer het later opnieuw. Je invoer blijft staan.';
+      }
+    } catch {
+      status.textContent = 'We konden de ontvangst niet bevestigen. Controleer je verbinding en probeer het later opnieuw. Je aanvraag is mogelijk al aangekomen; er wordt niet automatisch opnieuw verzonden.';
+    } finally {
+      clearTimeout(timeout);
+      sending = false;
+      submitButton.disabled = false;
+      fields.disabled = false;
+      form.setAttribute('aria-busy', 'false');
+    }
   });
-  document.querySelector('#submit-button').disabled = false;
+  submitButton.disabled = false;
 
   // One event-driven animation frame, only for scenes near the viewport.
   // Every visual value is derived from position, never elapsed time or replay state.

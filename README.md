@@ -23,7 +23,7 @@ De calculator is optioneel uitklapbaar. De video heeft native bediening en prelo
 - index.html, styles.css, script.js: inhoud, responsive vormgeving en interacties.
 - assets/logo.webp, assets/bestemd-film.mp4: ongewijzigde originele media.
 - assets/portal-preview.png: originele preview van de opdrachtgever (circa 1,82 MB).
-- docs/form-integration.md en docs/lead.schema.json: toekomstige backendintegratie.
+- docs/form-integration.md: EmailJS-configuratie en templatevariabelen.
 - docs/quality-report.md: controles en beperkingen.
 - tests/browser.cjs: reproduceerbare tests met Playwright.
 
@@ -40,6 +40,6 @@ GitHub Pages publiceert de productiebranch main. Alleen een featurebranch pushen
 publiceert de site niet. De wijzigingen gaan na controle via een pull request naar main.
 De actuele CNAME blijft behouden; DNS/Cloudflare worden niet aangepast.
 
-Het formulier is nadrukkelijk een preview: geen verzending of opslag. Voor live
-registratie zijn backend, privacyverklaring en bevestigde bedrijfsgegevens nodig.
+Het formulier verstuurt aanmeldingen via EmailJS. De eigenaar beheert de ontvanger
+en het mailontwerp in de EmailJS-template. Zie docs/form-integration.md.
 Geverifieerde video-ondertiteling/audiodescriptie ontbreekt; geen volledige WCAG-claim.
