@@ -197,15 +197,13 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     assert.equal(await page.locator('.film-play').isHidden(), true);
     results.push('Original video played via custom play button and native controls: ' + JSON.stringify(video));
 
-    await page.locator('#motion-toggle').click();
-    assert.equal(await page.locator('html').getAttribute('data-motion'), 'off');
-    assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior), 'auto');
-    await page.locator('#motion-toggle').click();
+    assert.equal(await page.locator('#motion-toggle').count(), 0);
+    await scroll(page, 0);
+    await page.waitForFunction(() => document.querySelector('.destination-art').classList.contains('route-arrived'));
     await page.emulateMedia({ reducedMotion: 'reduce' }); await settle(page);
     assert.equal(await page.locator('html').getAttribute('data-motion'), 'off');
-    assert.equal(await page.locator('h1').evaluate(el => getComputedStyle(el).animationName), 'none');
-    assert.equal(await page.locator('#motion-toggle').isDisabled(), true);
-    results.push('Manual motion switch and live OS reduced-motion changes remove animation and pinning.');
+    assert.equal(await page.locator('.route-road').evaluate(el => getComputedStyle(el).animationName), 'none');
+    results.push('Route journey finishes; footer motion button removed; OS reduced-motion preference disables animation.');
     assert.deepEqual(errors, []); assert.deepEqual(badResponses.filter(u => u !== endpoint), []); assert.deepEqual(external.filter(u => u !== endpoint), []);
     results.push('No JavaScript errors or unexpected failed resources/external requests; EmailJS requests were intercepted.');
 

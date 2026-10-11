@@ -157,9 +157,7 @@
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const scenes = [...document.querySelectorAll('[data-scroll-scene]')];
   const device = document.querySelector('.device-reveal');
-  const motionButton = document.querySelector('#motion-toggle');
   const activeScenes = new Set(scenes);
-  let userPaused = false;
   let frame = 0;
   let motionEnabled = !reducedMotion.matches;
   const clamp = value => Math.max(0, Math.min(1, value));
@@ -187,18 +185,13 @@
     if (!frame) frame = requestAnimationFrame(renderScroll);
   }
   function syncMotion() {
-    motionEnabled = !reducedMotion.matches && !userPaused;
+    motionEnabled = !reducedMotion.matches;
     root.dataset.motion = motionEnabled ? 'on' : 'off';
-    motionButton.setAttribute('aria-pressed', String(!motionEnabled));
-    motionButton.disabled = reducedMotion.matches;
-    motionButton.textContent = reducedMotion.matches ? 'Beweging uit · systeemvoorkeur' : motionEnabled ? 'Beweging uitzetten' : 'Beweging aanzetten';
     if (!motionEnabled) {
       scenes.forEach(scene => { scene.style.removeProperty('--progress'); scene.style.removeProperty('--reveal'); });
     }
     requestRender();
   }
-  motionButton.addEventListener('click', () => { userPaused = !userPaused; syncMotion(); });
-  motionButton.hidden = false;
   reducedMotion.addEventListener('change', syncMotion);
   window.addEventListener('scroll', requestRender, { passive: true });
   window.addEventListener('resize', requestRender, { passive: true });
@@ -215,4 +208,53 @@
     scenes.forEach(scene => observer.observe(scene));
   }
   syncMotion();
+  // A single short journey when the card enters view; no perpetual animation.
+  const card = document.querySelector('.destination-art');
+  const road = document.querySelector('.route-road');
+  const traveller = document.querySelector('.route-traveller');
+  let routeFrame = 0;
+  let routePlayed = false;
+  function finishRoute() {
+    cancelAnimationFrame(routeFrame);
+    routeFrame = 0;
+    const point = road.getPointAtLength(road.getTotalLength() * .91);
+    traveller.setAttribute('cx', point.x);
+    traveller.setAttribute('cy', point.y);
+    card.classList.remove('route-running');
+    card.classList.add('route-arrived');
+  }
+  function playRoute() {
+    if (routePlayed || reducedMotion.matches) return;
+    routePlayed = true;
+    card.classList.add('route-running');
+    const length = road.getTotalLength();
+    let start;
+    function step(time) {
+      start ??= time;
+      const progress = Math.min((time - start) / 2800, 1);
+      const eased = progress * progress * (3 - 2 * progress);
+      const point = road.getPointAtLength(length * (.12 + eased * .79));
+      traveller.setAttribute('cx', point.x);
+      traveller.setAttribute('cy', point.y);
+      if (progress < 1) routeFrame = requestAnimationFrame(step);
+      else finishRoute();
+    }
+    routeFrame = requestAnimationFrame(step);
+  }
+  if ('IntersectionObserver' in window) {
+    const routeObserver = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        playRoute();
+        if (routePlayed) routeObserver.disconnect();
+      }
+    }, { threshold: .35 });
+    routeObserver.observe(card);
+  } else playRoute();
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) { routePlayed = true; finishRoute(); }
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && routeFrame) finishRoute();
+  });
+  if (reducedMotion.matches) finishRoute();
 })();
