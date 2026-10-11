@@ -113,7 +113,7 @@
       user_id: 'f81KMSvhtpl0TUM-6',
       template_params: {
         name, email, company: form.elements.company.value.trim(),
-        from_name: name, from_email: email, reply_to: email,
+        from_name: name, from_email: email, to_email: email, reply_to: email,
         permission: 'Ja, ik wil per e-mail op de hoogte blijven van Bestemd.',
         source: 'Bestemd website — interesse in introductie'
       }
