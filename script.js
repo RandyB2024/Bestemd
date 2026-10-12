@@ -4,6 +4,13 @@
   const root = document.documentElement;
   const menu = document.querySelector('.menu-toggle');
   const navigation = document.querySelector('#navigation');
+  // Keep anchor clearance aligned with the actual sticky navigation height.
+  const header = document.querySelector('.header');
+  const syncHeaderHeight = () => root.style.setProperty('--header-height', header.getBoundingClientRect().height + 'px');
+  syncHeaderHeight();
+  if ('ResizeObserver' in window) new ResizeObserver(syncHeaderHeight).observe(header);
+  else window.addEventListener('resize', syncHeaderHeight);
+
   const closeMenu = () => {
     navigation.classList.remove('is-open');
     menu.setAttribute('aria-expanded', 'false');
