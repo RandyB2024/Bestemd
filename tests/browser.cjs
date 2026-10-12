@@ -48,7 +48,7 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     });
     await page.goto(url);
     await page.waitForTimeout(1700);
-    assert.equal(await page.locator('main > section').count(), 8);
+    assert.equal(await page.locator('main > section').count(), 9);
     assert.match(await page.locator('.opening-date').textContent(), /begin 2027/);
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('.abc-lines article').count(), 3);
@@ -62,11 +62,11 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     const assets = await page.locator('[src], [poster], link[rel=stylesheet], link[rel=icon]').evaluateAll(elements => [...new Set(elements.flatMap(e => [e.getAttribute('src'), e.getAttribute('poster'), e.getAttribute('href')]).filter(Boolean))]);
     for (const asset of assets.filter(asset => !asset.endsWith('.mp4'))) assert.equal((await page.request.get(url + '/' + asset)).status(), 200, asset);
     assert.equal((await page.request.get(url + '/assets/launch-social.png')).status(), 200);
-    results.push('Eight sections, launch period, anchor targets, canonical and local assets verified; no initial video download.');
+    results.push('Nine sections, launch period, anchor targets, canonical and local assets verified; no initial video download.');
 
     for (const width of [320,375,390,580,768,850,1024,1440,1920]) {
       await page.setViewportSize({ width, height: width < 600 ? 844 : 1000 });
-      for (const id of ['#home','#verhaal','#toekomst','#visie','#film','#introductie','#vragen','#contact']) {
+      for (const id of ['#home','#verhaal','#voor-wie','#toekomst','#visie','#film','#introductie','#vragen','#contact']) {
         await scroll(page, await sceneTop(page,id));
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Overflow: ${width}, ${id}`);
       }
@@ -82,7 +82,7 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
         await page.locator('#visie').screenshot({ path: path.join(output, `${prefix}-vision.png`) });
       }
     }
-    results.push('All eight sections checked at nine widths (320–1920px) without horizontal overflow; desktop/mobile screenshots saved.');
+    results.push('All nine sections checked at nine widths (320–1920px) without horizontal overflow; desktop/mobile screenshots saved.');
 
     await page.setViewportSize({ width: 1440, height: 1000 });
     const y = await sceneTop(page,'#toekomst');
@@ -120,6 +120,12 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     await page.locator('#tijdwinst > summary').click();
     results.push('Optional calculator: default, zero, maximum and fractional inputs passed.');
 
+    assert.equal(await page.locator('.audience-card').count(), 2);
+    assert.equal(await page.locator('.audience-card li').count(), 12);
+    await page.locator('.audience-signoff .button').click();
+    assert.equal(new URL(page.url()).hash, '#aanmelden');
+    assert.equal(await page.locator('#aanmelden').isVisible(), true);
+    results.push('Audience comparison: two cards, twelve points and working signup CTA.');
     assert.equal(await page.locator('.working-steps li').count(), 3);
     assert.equal(await page.locator('.faq-list details').count(), 5);
     await page.locator('.faq-list summary').first().click();
@@ -242,7 +248,7 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     const lab = await slow.evaluate(() => ({ ...window.lab, initialTransferBytes: [...performance.getEntriesByType('navigation'), ...performance.getEntriesByType('resource')].reduce((sum,e) => sum + e.transferSize,0), videoRequests: performance.getEntriesByType('resource').filter(e => e.name.endsWith('.mp4')).length }));
     assert.ok(lab.cls < .1, `Unexpected layout shift: ${lab.cls}`);
     assert.equal(lab.videoRequests, 0);
-    for (const id of ['#verhaal','#toekomst','#introductie']) await scroll(slow,await sceneTop(slow,id));
+    for (const id of ['#verhaal','#voor-wie','#toekomst','#introductie']) await scroll(slow,await sceneTop(slow,id));
     results.push('6× CPU / 1.6Mbps / 150ms mobile lab load: ' + JSON.stringify(lab));
     fs.writeFileSync(path.join(output,'fresh-test-results.json'), JSON.stringify(results,null,2));
     console.log(results.join('\n'));

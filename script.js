@@ -208,8 +208,8 @@
     scenes.forEach(scene => observer.observe(scene));
   }
   syncMotion();
-  // Reveal KISS and each coaching step once, when the visitor reaches them.
-  const philosophyItems = [...document.querySelectorAll('.kiss-intro, .abc-lines article')];
+  // Shared one-time reveal for philosophy and audience content.
+  const philosophyItems = [...document.querySelectorAll('.kiss-intro, .abc-lines article, .audience-heading, .audience-card, .audience-signoff')];
   function showPhilosophy() {
     philosophyItems.forEach(item => item.classList.add('is-visible'));
   }
