@@ -120,12 +120,22 @@ const sceneTop = (page, id) => page.locator(id).evaluate(el => el.getBoundingCli
     await page.locator('#tijdwinst > summary').click();
     results.push('Optional calculator: default, zero, maximum and fractional inputs passed.');
 
+    // Check real anchor positioning rather than screenshot cropping of a tall section.
+    for (const width of [320,390,768,1440]) {
+      await page.setViewportSize({width,height:900});
+      await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; location.hash = 'voor-wie'; });
+      await page.locator('#voor-wie').evaluate(el => el.scrollIntoView({block:'start',behavior:'instant'}));
+      await settle(page);
+      const bounds = await page.evaluate(() => ({header:document.querySelector('.header').getBoundingClientRect().bottom,title:document.querySelector('#audience-title').getBoundingClientRect().top}));
+      assert.ok(bounds.title > bounds.header + 12, 'Audience title overlaps header at ' + width);
+    }
+    await page.setViewportSize({width:390,height:844});
     assert.equal(await page.locator('.audience-card').count(), 2);
-    assert.equal(await page.locator('.audience-card li').count(), 12);
+    assert.equal(await page.locator('.audience-card li').count(), 10);
     await page.locator('.audience-signoff .button').click();
     assert.equal(new URL(page.url()).hash, '#aanmelden');
     assert.equal(await page.locator('#aanmelden').isVisible(), true);
-    results.push('Audience comparison: two cards, twelve points and working signup CTA.');
+    results.push('Audience comparison: two cards, ten points and working signup CTA.');
     assert.equal(await page.locator('.working-steps li').count(), 3);
     assert.equal(await page.locator('.faq-list details').count(), 5);
     await page.locator('.faq-list summary').first().click();
