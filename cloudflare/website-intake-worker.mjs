@@ -77,6 +77,33 @@ export default {
       });
     }catch{return json({ok:false,error:'Verzenden is niet bevestigd'},502,origin);}
     if(!res.ok)return json({ok:false,error:'Verzenden is niet bevestigd'},502,origin);
-    return json({ok:true,reference:id,notice:type.startsWith('newsletter')?'Je verzoek is ontvangen. De wijziging wordt nog verwerkt.':type==='book'?'Aanvraag ontvangen. Je hebt nog niet betaald en de bestelling is nog niet bevestigd.':'Bedankt! We nemen contact met je op.'},200,origin);
+    // Only send customer acknowledgements after the office notification is accepted.
+    // No payment, booking confirmation or newsletter subscription is implied.
+    const messageByType={
+      book:'We hebben je aanvraag voor het boek Kompas voor een rijker leven ontvangen. Dit is nog geen definitieve bestelling en er is niets betaald. We nemen contact met je op.',
+      training:'Bedankt voor je aanmelding voor een traject bij BESTEMD. We nemen contact met je op over de mogelijkheden. Er is nog geen definitieve boeking.',
+      contact:'Bedankt voor je bericht. We hebben het ontvangen en nemen contact met je op.',
+      newsletter_subscribe:'We hebben je verzoek om je aan te melden voor de BESTEMD-nieuwsbrief ontvangen. De inschrijving wordt nog verwerkt.',
+      newsletter_unsubscribe:'We hebben je afmeldverzoek voor de BESTEMD-nieuwsbrief ontvangen. De afmelding wordt nog verwerkt.'
+    };
+    const recipientHtml='<p>Beste '+esc(fields.name||'lezer')+',</p><p>'+esc(messageByType[type])+'</p><p>Referentie: '+esc(id)+'</p><p>Met vriendelijke groet,<br>BESTEMD<br><a href="mailto:info@mijnbestemd.nl">info@mijnbestemd.nl</a></p>';
+    let customerConfirmationAccepted=false;
+    try{
+      const customerResponse=await fetch('https://api.resend.com/emails',{
+        method:'POST',
+        headers:{Authorization:'Bearer '+env.RESEND_API_KEY,'Content-Type':'application/json'},
+        body:JSON.stringify({
+          from:env.RESEND_FROM||'BESTEMD <website@mijnbestemd.nl>',
+          to:[fields.email],reply_to:'info@mijnbestemd.nl',
+          subject:'BESTEMD | Ontvangstbevestiging | '+id.slice(0,8),
+          html:recipientHtml,
+          tags:[{name:'source',value:'website'},{name:'kind',value:'confirmation'}]
+        })
+      });
+      customerConfirmationAccepted=customerResponse.ok;
+    }catch{
+      customerConfirmationAccepted=false;
+    }
+    return json({ok:true,reference:id,confirmationAccepted:customerConfirmationAccepted,notice:type.startsWith('newsletter')?'Je verzoek is ontvangen. De wijziging wordt nog verwerkt.':type==='book'?'Aanvraag ontvangen. Je hebt nog niet betaald en de bestelling is nog niet bevestigd.':'Bedankt! We nemen contact met je op.'},200,origin);
   }
 };
