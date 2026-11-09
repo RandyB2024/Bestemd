@@ -86,7 +86,35 @@ export default {
       newsletter_subscribe:'We hebben je verzoek om je aan te melden voor de BESTEMD-nieuwsbrief ontvangen. De inschrijving wordt nog verwerkt.',
       newsletter_unsubscribe:'We hebben je afmeldverzoek voor de BESTEMD-nieuwsbrief ontvangen. De afmelding wordt nog verwerkt.'
     };
-    const recipientHtml='<p>Beste '+esc(fields.name||'lezer')+',</p><p>'+esc(messageByType[type])+'</p><p>Referentie: '+esc(id)+'</p><p>Met vriendelijke groet,<br>BESTEMD<br><a href="mailto:info@mijnbestemd.nl">info@mijnbestemd.nl</a></p>';
+    // Email client-compatible HTML: fixed-width table layout, inline styles and an absolute logo URL.
+    // Keep the internal reference available for support but discreet in the footer.
+    const emailTitle={
+      book:'Je boekaanvraag is ontvangen',
+      training:'Je aanmelding is ontvangen',
+      contact:'Bedankt voor je bericht',
+      newsletter_subscribe:'Je aanmelding voor de nieuwsbrief',
+      newsletter_unsubscribe:'Je afmeldverzoek is ontvangen'
+    }[type];
+    const recipientHtml='<!doctype html><html lang="nl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>'
+      +'<body style="margin:0;padding:0;background-color:#f3f6f5;font-family:Arial,Helvetica,sans-serif;color:#153345;">'
+      +'<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f3f6f5;"><tr><td align="center" style="padding:36px 16px;">'
+      +'<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:600px;background:#ffffff;border:1px solid #e1e8e7;border-radius:10px;">'
+      +'<tr><td style="padding:30px 36px 25px;border-bottom:1px solid #e8eeee;">'
+      +'<img src="https://mijnbestemd.nl/assets/logo.webp" width="154" alt="BESTEMD" style="display:block;width:154px;max-width:100%;height:auto;border:0;">'
+      +'</td></tr>'
+      +'<tr><td style="padding:37px 36px 30px;">'
+      +'<div style="color:#128f9b;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">BESTEMD · Rust &amp; Vertrouwen</div>'
+      +'<h1 style="margin:0 0 24px;font-size:28px;line-height:1.2;font-weight:700;color:#153345;">'+esc(emailTitle)+'</h1>'
+      +'<p style="font-size:16px;line-height:1.7;color:#314954;margin:0 0 16px;">Beste '+esc(fields.name||'lezer')+',</p>'
+      +'<p style="font-size:16px;line-height:1.7;color:#314954;margin:0 0 28px;">'+esc(messageByType[type])+'</p>'
+      +'<p style="font-size:15px;line-height:1.65;color:#314954;margin:0;">Met vriendelijke groet,<br><strong style="color:#153345;">Team BESTEMD</strong></p>'
+      +'</td></tr>'
+      +'<tr><td style="padding:22px 36px;background:#f8faf9;border-top:1px solid #e8eeee;">'
+      +'<p style="font-size:13px;line-height:1.6;margin:0 0 6px;color:#536a72;">Vragen? Mail ons via <a href="mailto:info@mijnbestemd.nl" style="color:#087e8a;text-decoration:none;font-weight:700;">info@mijnbestemd.nl</a></p>'
+      +'<p style="font-size:11px;line-height:1.5;margin:0;color:#8b9b9e;">Referentie voor onze administratie: '+esc(id)+'</p>'
+      +'</td></tr></table>'
+      +'<p style="font-size:11px;line-height:1.6;color:#819397;margin:18px 0 0;">BESTEMD · <a href="https://mijnbestemd.nl" style="color:#71898f;text-decoration:none;">mijnbestemd.nl</a></p>'
+      +'</td></tr></table></body></html>';
     let customerConfirmationAccepted=false;
     try{
       const customerResponse=await fetch('https://api.resend.com/emails',{
@@ -95,7 +123,7 @@ export default {
         body:JSON.stringify({
           from:env.RESEND_FROM||'BESTEMD <website@mijnbestemd.nl>',
           to:[fields.email],reply_to:'info@mijnbestemd.nl',
-          subject:'BESTEMD | Ontvangstbevestiging | '+id.slice(0,8),
+          subject:'BESTEMD | '+emailTitle,
           html:recipientHtml,
           tags:[{name:'source',value:'website'},{name:'kind',value:'confirmation'}]
         })
