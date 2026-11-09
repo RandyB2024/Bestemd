@@ -115,14 +115,81 @@ body{background:#fff;color:#233139}
 .newsletter-section .f-consent{color:var(--gray)}
 @media(max-width:750px){.benefits-layout,.book-feature,.training-layout,.contact-layout,.newsletter-layout{grid-template-columns:1fr;gap:25px}.benefits-heading{position:static}.section{padding:64px 0}.f-panel{padding:20px}.book-actual{max-height:260px}}
 @media(max-width:450px){.f-grid{grid-template-columns:1fr}.f-wide{grid-column:auto}}
+
+/* Plancraft-inspired homepage — original BESTEMD visuals, own colors and content */
+:root{--ink:#153b48;--gray:#536770;--aqua:#17aab5;--line:#e4ebec}
+html{scroll-padding-top:90px}
+body{overflow-x:hidden}
+.wrap{width:min(1160px,calc(100% - 42px))}
+.header{border-bottom:1px solid #edf0ef;background:#ffffffed;backdrop-filter:blur(16px)}
+.top{min-height:84px}
+.nav{gap:21px}
+.nav a{font-size:13px}
+.button,.button.alt{border-radius:999px;padding:14px 22px;transition:transform .2s,background .2s,box-shadow .2s}
+.button:hover{transform:translateY(-2px);box-shadow:0 7px 20px #153b481d}
+.button.alt{border:1px solid #c7d6d8;background:#fff}
+.hero-plancraft{padding:88px 0 68px;background:radial-gradient(ellipse at 50% 10%,#e3f6ef 0%,#f2faf6 40%,#fff 76%);overflow:hidden}
+.hero-centered{text-align:center}
+.hero-kicker{display:inline-flex;align-items:center;gap:10px;padding:10px 17px;border:1px solid #c8e4dc;background:#fff;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.025em;color:#285968}
+.live-dot{height:8px;width:8px;background:#18a895;border-radius:50%;box-shadow:0 0 0 4px #d6f5e9}
+.hero-centered h1{font-size:clamp(45px,6.2vw,83px);max-width:1060px;margin:25px auto 22px;line-height:1.09;letter-spacing:-.052em;color:#153b48}
+.hero-centered h1 span{color:#149da6}
+.hero-centered>p:not(.hero-image-note){font-size:18px;line-height:1.65;max-width:700px;margin:0 auto;color:#526974}
+.hero-centered .hero-actions{justify-content:center;margin-top:27px}
+.hero-trust{display:flex;justify-content:center;gap:27px;flex-wrap:wrap;color:#567078;font-size:13px;margin:29px 0 65px}
+.hero-trust span span{color:#0b9893;font-weight:900}
+.hero-product{position:relative;max-width:1020px;margin:0 auto;background:white;border:1px solid #dbe6e5;border-radius:18px;box-shadow:0 25px 65px #153b4821;padding:0 0 6px}
+.hero-product>img{display:block;width:100%;height:auto;border-radius:0 0 14px 14px}
+.product-topline{min-height:52px;display:flex;align-items:center;gap:14px;padding:10px 19px;border-bottom:1px solid #e3e9e8;font-size:12px;color:#59727a;text-align:left}
+.product-secure{margin-left:auto;font-size:11px}
+.dots{display:flex;gap:5px}
+.dots i{display:block;height:9px;width:9px;border-radius:50%;background:#d8e2e0}.dots i:first-child{background:#f3c6c3}.dots i:nth-child(2){background:#f6e3b6}
+.float-note{position:absolute;display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:17px 20px;background:#fff;border:1px solid #e2e9e7;border-radius:13px;box-shadow:0 12px 40px #16394720;text-align:left;transform:rotate(-3deg)}
+.float-note strong{font-size:14px;color:#153b48}
+.float-note small{font-size:12px;color:#62777c}
+.float-note-left{left:-45px;top:31%}.float-note-right{right:-38px;bottom:12%;transform:rotate(3deg)}
+.hero-image-note{font-size:12px!important;color:#7a8b8c;margin-top:21px!important}
+.pl-section-head{display:grid;grid-template-columns:1fr .65fr;gap:90px;align-items:end;margin-bottom:45px}
+.pl-section-head h2{font-size:clamp(33px,4vw,55px);margin:10px 0 0}
+.pl-section-head>p{margin:0 0 6px;font-size:16px}
+.pl-services{border-top:0;background:#fff}
+.pl-service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.pl-service-card{border:1px solid #e0e8e8;border-radius:19px;padding:31px;min-height:270px;display:flex;flex-direction:column;align-items:flex-start;background:#f8fbfa;transition:transform .25s,box-shadow .25s,border-color .25s}
+.pl-service-card:hover{transform:translateY(-6px);box-shadow:0 20px 30px #173d500e;border-color:#b5dcd5}
+.pl-service-card:nth-child(2){background:#eff9f4}.pl-service-card:nth-child(3){background:#f5f6fb}
+.pl-service-icon{border-radius:12px;background:#fff;padding:8px 13px;margin-bottom:27px;color:#10949d;font-weight:800;font-size:14px}
+.pl-service-card h3{font-size:24px}
+.pl-service-card p{font-size:15px;line-height:1.6}
+.pl-service-card a{margin-top:auto;text-decoration:none;font-size:13px;font-weight:700;color:#117f8b}
+.pl-steps{background:#153d4d;color:#fff;border-top:0}
+.pl-steps h2,.pl-steps h3{color:#fff}
+.pl-steps .eyebrow{color:#82d6cb}
+.pl-steps .pl-section-head>p{color:#c8d7da}
+.pl-steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:27px}
+.pl-steps-grid article{padding:20px 5px 15px;border-top:1px solid #55717a}
+.pl-steps-grid article span{display:grid;place-items:center;background:#c5f0d0;width:49px;height:49px;border-radius:50%;font-weight:bold;color:#153d4d;margin-bottom:25px}
+.pl-steps-grid p{color:#d2dfe2;font-size:15px}
+.benefits-section{background:#f6faf7}
+.benefits-list>div{transition:padding-left .2s}.benefits-list>div:hover{padding-left:9px}
+.person{background:#fff}
+.photo,.book-actual{border-radius:14px}
+.f-panel{border-radius:18px}
+.book-section{background:#f7faf7}
+.book-actual{max-height:380px}
+.payment-later{opacity:.8}
+.newsletter-section{background:#153d4d}
+@media(max-width:900px){.float-note{display:none}.pl-section-head{gap:25px}}
+@media(max-width:730px){.hero-plancraft{padding:55px 0 35px}.hero-centered h1{font-size:clamp(40px,10vw,60px)}.hero-trust{gap:12px 20px;margin-bottom:32px}.hero-product{border-radius:12px}.product-topline{font-size:10px;padding:10px}.product-secure{display:none}.pl-section-head,.pl-steps-grid,.pl-service-grid{grid-template-columns:1fr;gap:16px}.pl-service-card{min-height:230px}.pl-steps-grid article{padding:15px}.pl-section-head{margin-bottom:28px}}
+@media(prefers-reduced-motion:reduce){.button,.pl-service-card,.benefits-list>div{transition:none!important}}
 </style><meta name="bestemd-turnstile-sitekey" content="0x4AAAAAAFpT-skt1iIyGuh1">
 </head>
 <body>
 <header class="header"><div class="wrap top"><a class="brand" href="#boven" aria-label="BESTEMD naar boven"><img src="assets/logo.webp" alt="BESTEMD â€” Rust & Vertrouwen" width="176" height="72"></a><nav class="nav" aria-label="Hoofdnavigatie"><a href="#diensten">Wat we doen</a><a href="#over">Over ons</a><a href="#missie">Missie & visie</a><a href="#boek">Het boek</a><a href="#trajecten">Begeleiding</a><a href="https://app.mijnbestemd.nl/">Inloggen</a><a href="#contact" class="button">Contact</a></nav></div></header>
 <main id="boven">
-<section class="hero"><div class="wrap hero-layout"><div class="hero-copy"><p class="eyebrow">BESTEMD Â· Administratiekantoor</p><div class="underline"></div><h1>Je administratie goed geregeld.</h1><p>Geen gedoe met boekhouding, aangiften of ingewikkelde cijfers. Wij regelen je administratie en leggen uit wat je moet weten. Zodat jij tijd overhoudt voor je onderneming.</p><div class="hero-actions"><a class="button" href="#contact">Kennismaken</a><a class="button alt" href="#diensten">Wat we voor je doen</a></div><p class="hero-note">Persoonlijk contact. Duidelijke afspraken. Een handige online omgeving.</p></div><div class="hero-image"><img src="https://destination-known.eu/wp-content/uploads/2025/05/20240326_111843.jpg" alt="Foto van een bijeenkomst met Ed" fetchpriority="high"></div></div></section>
-<section class="section" id="diensten"><div class="wrap"><div class="section-intro"><h2>Waar kunnen we je mee helpen?</h2><p>Je wilt weten hoe je bedrijf ervoor staat. Zonder er zelf iedere dag met de administratie bezig te zijn.</p></div><div class="services"><article class="service"><h3>Boekhouding</h3><p>Je facturen, bonnetjes en administratie op Ã©Ã©n plek. Wij helpen je om alles netjes bij te houden.</p></article><article class="service"><h3>Belastingaangiften</h3><p>We verzorgen je aangiften en leggen uit waar je aan toe bent.</p></article><article class="service"><h3>Inzicht en advies</h3><p>Wat komt er binnen, wat gaat eruit en wat houd je over? We kijken met je mee.</p></article></div></div></section>
-<section class="section benefits-section" id="voordelen"><div class="wrap benefits-layout"><div class="benefits-heading"><span class="eyebrow">Dit krijg je bij BESTEMD</span><h2>Alles overzichtelijk. Zonder gedoe.</h2><p>We regelen de administratie en denken met je mee.</p><a href="#contact" class="button">Kennismaken</a></div><div class="benefits-list"><div><b>âœ“</b><span><strong>Boekhouding op orde</strong><small>Facturen, bonnetjes en boekingen op Ã©Ã©n plek.</small></span></div><div><b>âœ“</b><span><strong>Belastingzaken geregeld</strong><small>We helpen met de aangiften die bij jouw onderneming horen.</small></span></div><div><b>âœ“</b><span><strong>Inzicht in je cijfers</strong><small>Je ziet wat binnenkomt, uitgaat en overblijft.</small></span></div><div><b>âœ“</b><span><strong>Je eigen klantportaal</strong><small>Documenten en berichten overzichtelijk bij elkaar.</small></span></div><div><b>âœ“</b><span><strong>Echt persoonlijk contact</strong><small>Een vraag? Je spreekt met mensen die je kennen.</small></span></div><div><b>âœ“</b><span><strong>Duidelijke afspraken</strong><small>Geen ingewikkeld verhaal, maar weten waar je aan toe bent.</small></span></div></div></div></section>
+<section class="hero hero-plancraft" aria-labelledby="hero-title"><div class="wrap hero-centered"><span class="hero-kicker"><span class="live-dot"></span> BESTEMD · Administratiekantoor voor ondernemers</span><h1 id="hero-title">Meer grip op je cijfers.<br><span>Meer ruimte voor wat telt.</span></h1><p>Wij regelen je boekhouding, belastingzaken en administratie. Jij houdt overzicht in je eigen klantportaal én tijd voor je onderneming.</p><div class="hero-actions"><a class="button" href="#contact">Plan een kennismaking <span aria-hidden="true">↗</span></a><a class="button alt" href="#zo-werkt-het">Ontdek hoe het werkt <span aria-hidden="true">↓</span></a></div><div class="hero-trust"><span><span aria-hidden="true">✓</span> Persoonlijk contact</span><span><span aria-hidden="true">✓</span> Altijd inzicht</span><span><span aria-hidden="true">✓</span> Zonder administratieve rompslomp</span></div><div class="hero-product"><div class="product-topline"><span class="dots"><i></i><i></i><i></i></span><span>Mijn Bestemming · Jouw online omgeving</span><span class="product-secure">🔒 Beveiligde toegang</span></div><img src="assets/portal-preview.png" alt="Voorbeeld van het BESTEMD klantportaal Mijn Bestemming" width="1672" height="941" fetchpriority="high"><span class="float-note float-note-left"><strong>Alles op één plek</strong><small>Bonnetjes, facturen en documenten</small></span><span class="float-note float-note-right"><strong>Rust in je administratie</strong><small>Wij houden het overzicht</small></span></div><p class="hero-image-note">Een kijkje in Mijn Bestemming, het online klantportaal van BESTEMD.</p></div></section>
+<section class="section pl-services" id="diensten"><div class="wrap"><div class="pl-section-head"><div><span class="eyebrow">Wat BESTEMD voor je doet</span><h2>Alles wat je nodig hebt.<br>Niet ingewikkelder dan dat.</h2></div><p>Van je eerste factuur tot je belastingaangifte: wij houden de administratie op orde en jij kijkt eenvoudig mee.</p></div><div class="pl-service-grid"><article class="pl-service-card"><div class="pl-service-icon">01</div><h3>Boekhouding</h3><p>Je facturen, bonnen en banktransacties netjes verwerkt. Niet alles zelf hoeven uitzoeken.</p><a href="#contact">Bespreek je administratie <span aria-hidden="true">↗</span></a></article><article class="pl-service-card"><div class="pl-service-icon">02</div><h3>Belastingzaken</h3><p>We helpen met je btw-aangifte, jaarafsluiting en de aangiften die voor jouw onderneming nodig zijn.</p><a href="#contact">Stel een vraag <span aria-hidden="true">↗</span></a></article><article class="pl-service-card"><div class="pl-service-icon">03</div><h3>Inzicht en begeleiding</h3><p>Hoe gaat je onderneming ervoor? We maken cijfers begrijpelijk en denken persoonlijk met je mee.</p><a href="#contact">Maak kennis <span aria-hidden="true">↗</span></a></article></div></div></section>
+<section class="section pl-steps" id="zo-werkt-het"><div class="wrap"><div class="pl-section-head"><div><span class="eyebrow">Zo werkt BESTEMD</span><h2>Een helder proces.<br>Van begin tot inzicht.</h2></div><p>Geen eindeloze administratie. Jij levert aan wat nodig is, wij zorgen dat het overzichtelijk blijft.</p></div><div class="pl-steps-grid"><article><span>1</span><h3>We maken kennis</h3><p>We luisteren naar je onderneming en wat je nodig hebt.</p></article><article><span>2</span><h3>We richten alles in</h3><p>Je documenten en communicatie krijgen één duidelijke plek.</p></article><article><span>3</span><h3>Wij regelen, jij kijkt mee</h3><p>Met je eigen portaal houd je grip op je administratie.</p></article></div></div></section>
+<section class="section benefits-section" id="voordelen"><div class="wrap benefits-layout"><div class="benefits-heading"><span class="eyebrow">Dit krijg je bij BESTEMD</span><h2>De voordelen van een goede administratie.</h2><p>Alles op orde, zonder dat je iedere dag met cijfers bezig bent.</p><a href="#contact" class="button">Even kennismaken <span aria-hidden="true">↗</span></a></div><div class="benefits-list"><div><b>✓</b><span><strong>Boekhouding op orde</strong><small>Facturen, bonnetjes en boekingen overzichtelijk verwerkt.</small></span></div><div><b>✓</b><span><strong>Belastingzaken geregeld</strong><small>Hulp bij de aangiften die bij jouw onderneming horen.</small></span></div><div><b>✓</b><span><strong>Je eigen klantportaal</strong><small>Documenten en berichten op één plek.</small></span></div><div><b>✓</b><span><strong>Inzicht in je cijfers</strong><small>Begrijpelijk overzicht van hoe je onderneming ervoor staat.</small></span></div><div><b>✓</b><span><strong>Persoonlijk contact</strong><small>Je spreekt met iemand die je onderneming kent.</small></span></div><div><b>✓</b><span><strong>Duidelijke afspraken</strong><small>Je weet wat we voor je doen en hoe we samenwerken.</small></span></div></div></div></section>
 <section class="section person" id="over"><div class="wrap split"><div><p class="eyebrow">De mensen achter BESTEMD</p><h2>Een vertrouwd gezicht. Ook als het over cijfers gaat.</h2><p>Bij BESTEMD heb je contact met mensen die je kennen. We houden van duidelijke taal en maken het niet ingewikkelder dan nodig.</p><p><strong>Maak kennis met Ed Beemsterboer.</strong> Ed werkt sinds 1992 in de financiÃ«le wereld. Hij begon in de accountancy en heeft zelf een administratiekantoor gehad. Die ervaring neemt hij mee in zijn begeleiding.</p><p>Onze aanpak is simpel: we luisteren, we regelen wat nodig is en we blijven met je meedenken.</p><a href="#contact">Stel ons gerust een vraag â†’</a></div><div><img class="photo ed" src="https://destination-known.eu/wp-content/uploads/2024/12/Ed-70-scaled.jpg" alt="Ed Beemsterboer, gefotografeerd bij een strandlocatie" loading="lazy"><p class="photo-credit">Ed Beemsterboer Â· Foto uit Destination Known</p></div></div></section>
 <section class="section mission" id="missie"><div class="wrap values"><article><h3>Onze missie</h3><p>Wij helpen MKB-ondernemers om grip te krijgen op hun geld en koers te zetten naar het leven dat ze Ã©cht willen leiden.</p></article><article><h3>Onze visie</h3><p>Wij regelen en bewaken de financiÃ«le kant, maar beginnen met de vraag: <strong>waar wil jij eigenlijk naartoe?</strong></p></article></div></section>
 <section class="section fit-section" id="voor-wie"><div class="wrap"><div class="section-intro"><h2>Past BESTEMD bij jou?</h2><p>We werken graag met ondernemers die duidelijkheid en persoonlijk contact belangrijk vinden.</p></div><div class="fit-columns"><article><h3>Wel iets voor jou alsâ€¦</h3><ul><li>Je je administratie goed geregeld wilt hebben.</li><li>Je wilt begrijpen hoe je bedrijf ervoor staat.</li><li>Je het fijn vindt als iemand met je meedenkt.</li></ul></article><article><h3>Misschien niet alsâ€¦</h3><ul><li>Je alleen de allerlaagste prijs zoekt.</li><li>Je liever alles zelf doet, zonder overleg.</li><li>Je geen behoefte hebt aan persoonlijk contact.</li></ul></article></div><p class="fit-question">Twijfel je? <a href="#contact">We maken gewoon even kennis â†’</a></p></div></section>
