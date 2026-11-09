@@ -254,6 +254,34 @@ body{font-family:Arial,Helvetica,sans-serif;background:#fff;color:#173a43}
 @media(max-width:920px){.bb-hero-grid{gap:26px}.bb-media-sticker{left:-12px}.bb-media-detail{right:0}.bb-tour{grid-template-columns:1fr}.bb-tour-menu{flex-direction:row}.bb-tour-tab{flex:1;display:block;padding:15px}.bb-tour-tab>span{margin-bottom:10px}.bb-tour-tab[aria-selected=true]{transform:none}}
 @media(max-width:680px){.bb-hero-grid{grid-template-columns:1fr;padding:52px 0 35px;gap:16px}.bb-hero-copy h1{font-size:clamp(51px,12vw,70px)}.bb-hero-copy>p{font-size:16px}.bb-hero-media{max-width:480px;margin:10px auto 0;width:100%;padding:10px 0 40px}.bb-media-main{aspect-ratio:5/4;border-radius:110px 110px 14px 14px}.bb-media-sticker{bottom:13px;left:5px;padding:15px 20px}.bb-media-sticker strong{font-size:18px}.bb-media-detail{font-size:10px;top:26px}.bb-hero-bottom{padding-top:14px}.bb-tour-menu{display:grid;grid-template-columns:1fr 1fr;gap:7px}.bb-tour-tab{padding:13px}.bb-tour-tab strong{font-size:14px}.bb-tour-tab small{font-size:11px}.bb-showcase{padding:69px 0}.bb-stage-caption{padding:18px;gap:12px}.bb-stage-caption h3{font-size:18px}}
 @media(prefers-reduced-motion:reduce){.bb-tour-tab{transition:none}}
+/* Public Wize, visually isolated from all client and Office systems */
+.wize-public{position:fixed;right:22px;bottom:22px;z-index:40;font-family:Arial,Helvetica,sans-serif}
+.wize-launch{border:0;background:#123e4b;color:#fff;padding:9px 18px 9px 9px;border-radius:999px;box-shadow:0 9px 30px #123e4b50;display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;cursor:pointer}
+.wize-launch-orb,.wize-brand-icon{background:#b7ead5;color:#123e4b;border-radius:50%;display:grid;place-items:center;font-size:19px;font-weight:900;width:40px;height:40px}
+.wize-window{position:absolute;right:0;bottom:65px;width:min(396px,calc(100vw - 26px));max-height:min(630px,calc(100dvh - 96px));background:#fff;border:1px solid #dce8e6;border-radius:18px;box-shadow:0 20px 75px #123e4b40;overflow:hidden;display:flex;flex-direction:column;color:#173d47}
+.wize-window[hidden]{display:none}
+.wize-window-header{background:#123e4b;color:white;padding:15px;display:flex;align-items:center;gap:11px}
+.wize-window-header>div{display:flex;flex-direction:column;gap:3px}
+.wize-window-header strong{font-size:16px}
+.wize-window-header small{font-size:11px;color:#c9dcdd}
+.wize-close{margin-left:auto;background:transparent;color:#fff;border:0;font-size:25px;cursor:pointer}
+.wize-disclaimer{padding:12px 16px;background:#e9f5f0;color:#486269;font-size:11px;line-height:1.55}
+.wize-messages{overflow-y:auto;flex:1;min-height:135px;padding:15px;display:flex;flex-direction:column;gap:12px}
+.wize-msg{max-width:92%;border-radius:12px;padding:11px 13px;background:#f1f5f4;font-size:13px}
+.wize-msg p{margin:0;color:#234650}
+.wize-msg-user{margin-left:auto;background:#d9f1e7}
+.wize-sources{margin-top:10px;display:grid;gap:5px}
+.wize-sources strong{font-size:11px}
+.wize-sources a{font-size:11px;color:#087b82}
+.wize-compose{padding:12px 15px;border-top:1px solid #e3ebeb}
+.wize-compose label{display:block;font-size:12px;font-weight:bold;margin-bottom:5px}
+.wize-compose textarea{width:100%;min-height:54px;max-height:90px;border:1px solid #b5c6c5;border-radius:6px;padding:9px;font:13px Arial;resize:vertical}
+.wize-submit{border:0;border-radius:999px;background:#123e4b;color:white;padding:10px 17px;font-size:12px;font-weight:bold;cursor:pointer}
+.wize-submit:disabled{opacity:.6}
+.wize-status{font-size:11px;margin:8px 0 0;color:#596f75}
+.wize-window-footer{text-align:center;border-top:1px solid #e1e9e7;padding:11px;font-size:11px}
+.wize-window-footer a{color:#087d86}
+@media(max-width:520px){.wize-public{right:12px;bottom:12px}.wize-window{bottom:59px;max-height:calc(100dvh - 83px)}}
 </style><meta name="bestemd-turnstile-sitekey" content="0x4AAAAAAFpT-skt1iIyGuh1">
 </head>
 <body>
@@ -276,4 +304,4 @@ body{font-family:Arial,Helvetica,sans-serif;background:#fff;color:#173a43}
 (()=>{const tabs=[...document.querySelectorAll('.bb-tour-tab')],p=document.getElementById('bb-tour-panel'),title=document.getElementById('bb-stage-title'),desc=document.getElementById('bb-stage-description'),num=document.getElementById('bb-stage-number');if(!tabs.length)return;
 function choose(index,focus){tabs.forEach((t,i)=>{t.setAttribute('aria-selected',String(i===index));t.tabIndex=i===index?0:-1});const t=tabs[index];title.textContent=t.dataset.tourTitle;desc.textContent=t.dataset.tourDescription;num.textContent=t.dataset.tourIndex+' / 03';p.setAttribute('aria-labelledby',t.id);if(focus)t.focus()}
 tabs.forEach((t,i)=>{t.addEventListener('click',()=>choose(i,false));t.addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft','ArrowDown','ArrowUp','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'||e.key==='ArrowDown'?1:-1)+tabs.length)%tabs.length;choose(next,true)})})})();
-</script></body></html>
+</script><aside class="wize-public" id="wize-public-widget" aria-label="Wize, de digitale assistent van BESTEMD"><button type="button" class="wize-launch" data-wize-open aria-expanded="false" aria-controls="wize-public-panel"><span class="wize-launch-orb">W</span><span>Vraag het Wize</span></button><div class="wize-window" id="wize-public-panel" data-wize-panel hidden><header class="wize-window-header"><span class="wize-brand-icon">W</span><div><strong>Wize</strong><small>Digitale assistent van BESTEMD</small></div><button type="button" class="wize-close" data-wize-close aria-label="Chat sluiten">×</button></header><div class="wize-disclaimer">Ik ben een digitale assistent. Ik geef alleen algemene informatie met controleerbare bronnen. Deel geen persoonsgegevens, bedrijfsgegevens of vertrouwelijke informatie.</div><div class="wize-messages" data-wize-messages aria-live="polite"><div class="wize-msg wize-msg-bot"><p>Welkom! Je kunt me een algemene vraag stellen over administratie, btw of BESTEMD. Voor persoonlijke vragen helpt een medewerker je graag.</p></div></div><form class="wize-compose"><label for="wize-question">Stel je vraag</label><textarea id="wize-question" maxlength="900" rows="2" placeholder="Bijvoorbeeld: waar lees ik over btw-aangifte?" required></textarea><div data-wize-turnstile></div><button type="submit" class="wize-submit">Versturen <span aria-hidden="true">↗</span></button><p class="wize-status" data-wize-status role="status" aria-live="polite"></p></form><footer class="wize-window-footer"><a href="#contact">Liever persoonlijk contact?</a> · <a href="mailto:info@mijnbestemd.nl">E-mail BESTEMD</a></footer></div></aside><script src="wize-public.js" defer></script></body></html>
