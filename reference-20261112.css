@@ -122,3 +122,31 @@ body{background:#fff;color:#082f3a}
   .hero-copy{padding-bottom:290px}
   .hero h1{font-size:clamp(34px,8.9vw,45px)}
 }
+
+/* Final fix: crop away ALL embedded headline pixels from the photographed
+   reference, instead of trying to fade readable letters into the live text.
+   Source is 2172x724: at desktop hero height the safe crop starts at x~1200.
+   Keep Ed and signature intact in the right-side slice. */
+@media(min-width:901px){
+  .hero-photo{
+    left:auto!important;right:0!important;top:0!important;bottom:0!important;
+    width:min(47vw,720px)!important;height:100%!important;
+    background-size:auto 100%!important;background-position:right center!important;
+    mask-image:linear-gradient(to right,transparent 0%,#000 7%)!important;
+    -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 7%)!important;
+  }
+}
+@media(min-width:721px) and (max-width:900px){
+  .hero-photo{
+    left:auto!important;right:0!important;top:0!important;bottom:0!important;
+    width:56vw!important;height:100%!important;
+    background-size:auto 100%!important;background-position:right center!important;
+    mask-image:linear-gradient(to right,transparent 0%,#000 9%)!important;
+    -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 9%)!important;
+  }
+}
+@media(max-width:720px){
+  /* Mobile: use portrait-only file; never load mockup text into the background. */
+  .hero-photo{background:none!important;mask-image:none!important;-webkit-mask-image:none!important}
+  .hero-photo img{display:block!important;height:100%;width:100%;object-fit:contain;object-position:right bottom}
+}
