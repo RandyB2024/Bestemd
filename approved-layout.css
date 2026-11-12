@@ -1,0 +1,27 @@
+
+/* Approved BESTEMD visual: light warm hero, oversized Ed photo, four quick links, featured book. */
+.site-header{background:#fff;box-shadow:0 2px 15px #0a384209}.navbar{height:80px}.navigation a{font-size:13px}
+.hero{min-height:535px;background:linear-gradient(180deg,#e8eef7 0%,#fdf1e4 51%,#e7c49a 76%,#d5d8d1 100%);color:#073946;position:relative;isolation:isolate}
+.hero:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 83% 67%,#fff2b5 0%,transparent 18%),linear-gradient(175deg,transparent 62%,#a9b6ae61 75%,#7e9a9e9c 88%,#425b5e99 100%);z-index:0}
+.hero:after{display:none}.hero-inner{min-height:535px;display:flex;align-items:center;position:relative}
+.hero-copy{width:min(850px,66%);position:relative;z-index:3;padding:63px 0 103px}
+.hero .kicker{color:#0b4b59;letter-spacing:.12em;font-size:12px}
+.hero h1{font-size:clamp(45px,4.8vw,69px);line-height:1.09;letter-spacing:-.055em;color:#053b49;max-width:850px;margin:18px 0 20px}
+.hero p{font-size:17px;line-height:1.55;color:#365461;max-width:530px}
+.hero-buttons{margin-top:25px;gap:14px}
+.hero .pill{padding:14px 26px;box-shadow:0 5px 16px #0a39400c}.hero .pill-soft{background:#075162;border-color:#075162}
+.hero .pill-outline{background:#ffffffdc;color:#073946!important;border-color:#0d6772!important}
+.hero-photo{position:absolute;z-index:2;inset:auto 0 0 auto;width:49%;height:100%;overflow:visible;pointer-events:none}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 34%;filter:none;mask-image:linear-gradient(90deg,transparent,#000 19%,#000 100%)}
+.hero-photo:after{display:none}.hero-strap{display:none}
+.shortcut-wrap{margin-top:-44px}.shortcuts{gap:13px}.shortcut{min-height:98px;border-radius:14px;box-shadow:0 14px 35px #1637431c}
+.shortcut-icon{background:transparent;color:#075463;width:35px}.shortcut-arrow{display:grid;place-items:center;background:#e2efea;color:#075563;border-radius:50%;width:35px;height:35px;font-size:20px;flex:none}
+.shortcut strong{font-size:15px}.shortcut small{font-size:12px}
+.book-spotlight{margin-top:35px;min-height:316px;grid-template-columns:300px 1fr;gap:38px;background:linear-gradient(105deg,#f1f6f5 0%,#f8f8f6 46%,#f5e3cecc 79%,#d2c09a88 100%);position:relative;border-radius:20px}
+.book-spotlight:before{content:'';position:absolute;inset:0 0 0 50%;background:linear-gradient(90deg,#fbfaf9 4%,#fbfaf9ca 35%,transparent 83%);z-index:0}
+.book-spotlight img{position:relative;z-index:1;height:308px;object-fit:contain;padding:12px 10px 0 32px}
+.book-content{position:relative;z-index:1;padding:35px 38px 40px 0}.book-content .kicker{font-size:11px;margin-bottom:8px}.book-content h2{font-size:clamp(28px,3.2vw,45px);margin:5px 0 15px}.book-content p{max-width:590px;font-size:15px;color:#4a626c;margin-bottom:19px}.book-info .pill{font-size:13px}
+.intro{padding:90px 0 27px}.services{gap:19px}.service{background:#fff;border:1px solid #e3e9e6;border-radius:12px;min-height:205px}.feature{margin-top:73px}
+@media(max-width:1000px){.hero-copy{width:65%}.hero h1{font-size:clamp(43px,5vw,63px)}.hero-photo{width:48%}.book-spotlight{grid-template-columns:240px 1fr;gap:18px}}
+@media(max-width:720px){.hero{min-height:580px}.hero-inner{min-height:580px;align-items:flex-start}.hero-copy{width:100%;padding:42px 0 230px}.hero h1{font-size:clamp(40px,8.5vw,57px);max-width:580px}.hero p{max-width:480px}.hero-photo{height:340px;width:70%;bottom:0;right:-8%;opacity:.95}.hero:before{background:linear-gradient(170deg,#eef2fa 0%,#f7eee7 55%,#d9c4aa 84%,#6c868e 100%)}.shortcut-wrap{margin-top:-30px}.book-spotlight{grid-template-columns:190px 1fr;gap:10px}.book-spotlight img{height:270px;padding:12px}.book-content{padding:27px 15px 23px 0}.book-content h2{font-size:29px}}
+@media(max-width:530px){.hero{min-height:640px}.hero-inner{min-height:640px}.hero-copy{padding:34px 0 315px}.hero h1{font-size:clamp(39px,10vw,50px)}.hero .kicker{font-size:10px}.hero p{font-size:14px}.hero-buttons{gap:9px}.hero .pill{font-size:12px;padding:12px 16px}.hero-photo{height:330px;width:90%;right:-14%}.shortcuts{gap:8px}.shortcut{padding:12px 10px;min-height:90px}.shortcut-icon{width:26px}.shortcut-arrow{width:22px;height:22px;font-size:13px}.shortcut strong{font-size:12px}.shortcut small{font-size:10px}.book-spotlight{grid-template-columns:1fr;gap:0;margin-top:28px}.book-spotlight img{max-height:220px;width:100%;height:220px;padding:9px}.book-content{padding:4px 22px 27px}.book-content h2{font-size:30px}}
