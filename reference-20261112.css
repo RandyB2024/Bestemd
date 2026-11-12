@@ -150,3 +150,15 @@ body{background:#fff;color:#082f3a}
   .hero-photo{background:none!important;mask-image:none!important;-webkit-mask-image:none!important}
   .hero-photo img{display:block!important;height:100%;width:100%;object-fit:contain;object-position:right bottom}
 }
+
+/* Trajectory cards: crop ONLY the three photographic windows from the
+   1055x1491 source (image windows at y=942..1150). No embedded page text. */
+.path-card .path-image{
+  background-size:346% auto!important;
+  background-repeat:no-repeat!important;
+  background-position-y:73.2%!important;
+  overflow:hidden;
+}
+.path-card:nth-child(1) .path-image{background-position-x:5.8%!important}
+.path-card:nth-child(2) .path-image{background-position-x:50%!important}
+.path-card:nth-child(3) .path-image{background-position-x:94.2%!important}
