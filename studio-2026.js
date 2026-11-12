@@ -1,28 +1,44 @@
 'use strict';
-/* Progressive enhancement only — website intake, Wize and other scripts are untouched. */
+// Only visual interactions. Resend, Turnstile, Wize and Office logic are unchanged.
 (()=>{
- const header=document.querySelector('.header'),nav=header?.querySelector('.nav');
- if(header&&nav){
-   const button=document.createElement('button');
-   button.type='button';button.className='bb-mobile-menu';button.setAttribute('aria-controls','bb-main-nav');button.setAttribute('aria-expanded','false');button.textContent='Menu ☰';
-   nav.id='bb-main-nav';header.querySelector('.top')?.insertBefore(button,nav);
-   function close(){nav.classList.remove('bb-nav-open');button.setAttribute('aria-expanded','false');button.textContent='Menu ☰'}
-   button.addEventListener('click',()=>{const open=!nav.classList.contains('bb-nav-open');nav.classList.toggle('bb-nav-open',open);button.setAttribute('aria-expanded',String(open));button.textContent=open?'Sluiten ×':'Menu ☰'});
-   nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
-   document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-   document.addEventListener('click',e=>{if(!header.contains(e.target))close()});
- }
- const bar=document.createElement('div');bar.className='bb-scroll-progress';bar.setAttribute('aria-hidden','true');document.body.append(bar);
- let pending=false;
- function update(){bar.style.width=String(Math.max(0,Math.min(100,(window.scrollY/(document.documentElement.scrollHeight-innerHeight||1))*100)))+'%';pending=false}
- window.addEventListener('scroll',()=>{if(!pending){pending=true;requestAnimationFrame(update)}},{passive:true});update();
- const revealSelectors=['.pl-section-head','.pl-service-card','.bb-showcase-intro','.bb-tour','.benefits-heading','.benefits-list','.pl-steps-grid article','.person .split','.mission .values','.fit-section .section-intro','.fit-columns','.film-layout','.ed-social-head','.book-feature','.training-layout','.contact-layout','.newsletter-layout','.bb-faq-grid'];
- if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-   const targets=document.querySelectorAll(revealSelectors.join(','));
-   targets.forEach(el=>el.setAttribute('data-bb-reveal',''));
-   const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target)}}),{threshold:.06,rootMargin:'0px 0px 40px 0px'});
-   targets.forEach(el=>observer.observe(el));
-   // Safety: content remains visible if observer is unavailable or scripts fail.
-   document.addEventListener('visibilitychange',()=>{if(document.hidden)return;});
- }
+  const toggle=document.querySelector('.menu-toggle');
+  const nav=document.getElementById('site-nav');
+  if(toggle&&nav){
+    const close=()=>{nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false');toggle.textContent='Menu'};
+    toggle.addEventListener('click',()=>{
+      const open=!nav.classList.contains('is-open');
+      nav.classList.toggle('is-open',open);
+      toggle.setAttribute('aria-expanded',String(open));
+      toggle.textContent=open?'Sluiten':'Menu';
+    });
+    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+    document.addEventListener('click',e=>{if(!toggle.contains(e.target)&&!nav.contains(e.target))close()});
+  }
+  const tabs=[...document.querySelectorAll('.portal-tab')];
+  const panel=document.getElementById('portal-panel');
+  const title=document.getElementById('portal-title');
+  const description=document.getElementById('portal-description');
+  const content=[
+    {title:'Je documenten bij elkaar.',description:'Lever stukken aan en vind je documenten terug.'},
+    {title:'Je cijfers duidelijk.',description:'Zie hoe je onderneming ervoor staat en stel vragen waar nodig.'},
+    {title:'Snel contact met ons.',description:'Berichten en vragen op een overzichtelijke plek.'}
+  ];
+  if(tabs.length===3&&panel&&title&&description){
+    function select(i,focus=false){
+      tabs.forEach((tab,n)=>{tab.setAttribute('aria-selected',String(n===i));tab.tabIndex=n===i?0:-1});
+      title.textContent=content[i].title;
+      description.textContent=content[i].description;
+      panel.setAttribute('aria-labelledby',tabs[i].id);
+      if(focus)tabs[i].focus();
+    }
+    tabs.forEach((tab,i)=>{
+      tab.addEventListener('click',()=>select(i));
+      tab.addEventListener('keydown',e=>{
+        if(!['ArrowRight','ArrowLeft','ArrowDown','ArrowUp','Home','End'].includes(e.key))return;
+        e.preventDefault();
+        select(e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'||e.key==='ArrowDown'?1:-1)+tabs.length)%tabs.length,true);
+      });
+    });
+  }
 })();
