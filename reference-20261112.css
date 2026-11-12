@@ -19,8 +19,11 @@ body{background:#fff;color:#082f3a}
 .hero-buttons{margin-top:20px;gap:12px}
 .hero-buttons .pill{border-radius:999px;font-size:13px;padding:13px 24px}
 .hero .pill-outline{color:#073e49!important;border-color:#0a5864;background:#fff}
-.hero-photo{position:absolute;width:55%;height:100%;right:0;top:0;z-index:2;background-image:url('https://d2ol7oe51mr4n9.cloudfront.net/user_3L1Dk2QcsFf7KL82FSvtUquBeEP/187fad45-b068-4a94-9d08-13dadf0c2667.png');background-repeat:no-repeat;background-size:100vw auto;background-position:right -5.8vw;mask-image:linear-gradient(to bottom,#000 0%,#000 80%,transparent 99%);pointer-events:none}
-.hero-photo img{display:none}
+.hero-photo{position:absolute;right:0;bottom:0;top:0;width:43%;height:100%;z-index:2;background:none!important;overflow:hidden;pointer-events:none;mask-image:none!important}
+.hero-photo img{display:block!important;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:none}
+.hero-photo:after{display:none!important}
+.hero-copy{width:57%;max-width:710px}
+.hero h1{max-width:710px}
 .shortcut-wrap{margin-top:-37px}
 .shortcuts{gap:12px}
 .shortcut{border-radius:13px;min-height:88px;padding:15px 17px;box-shadow:0 8px 22px #163c4b18}
@@ -63,3 +66,10 @@ body{background:#fff;color:#082f3a}
 @media(max-width:900px){.hero-copy{width:65%}.hero-photo{width:55%}.hero h1{font-size:clamp(37px,4.5vw,54px)}.shortcut{padding:12px}.shortcut strong{font-size:13px}.book-spotlight{grid-template-columns:230px 1fr}}
 @media(max-width:720px){.navbar{height:74px}.hero{min-height:540px}.hero-inner{min-height:540px;align-items:start}.hero-copy{width:100%;padding:42px 0 0}.hero h1{font-size:clamp(36px,7vw,52px);max-width:540px}.hero p{max-width:480px}.hero-photo{width:80%;height:100%;background-size:calc(100vw * 1.6) auto;background-position:right -12vw;mask-image:linear-gradient(to bottom,transparent 0%,transparent 19%,#000 49%,#000 91%,transparent 100%);opacity:.8}.shortcut-wrap{margin-top:-20px}.shortcuts{grid-template-columns:repeat(2,1fr)}.book-spotlight{grid-template-columns:160px 1fr;gap:5px}.book-spotlight>img{height:250px}.book-content{padding:28px 15px 22px 0}.book-content h2{font-size:29px}.path-section{padding-top:52px}.path-grid{grid-template-columns:1fr}.path-image{aspect-ratio:1.75}.path-copy p{min-height:0}}
 @media(max-width:530px){.shell{width:calc(100% - 30px)}.hero{min-height:600px}.hero-inner{min-height:600px}.hero-copy{padding:31px 0 0}.hero h1{font-size:clamp(35px,9.3vw,46px)}.hero p{font-size:14px}.hero-photo{width:99%;background-size:calc(100vw * 1.9) auto;background-position:right -22vw;opacity:.75}.shortcut-wrap{margin-top:-19px}.shortcuts{gap:8px}.shortcut{min-height:92px;padding:11px;gap:5px}.shortcut-icon{width:26px}.shortcut-icon svg{width:22px}.shortcut strong{font-size:12px}.shortcut small{font-size:10px}.shortcut-arrow{display:none}.book-spotlight{grid-template-columns:1fr;gap:0}.book-spotlight>img{height:205px;padding:0 0 0 8px;transform:none}.book-content{padding:0 24px 29px}.book-content h2{font-size:28px}.book-info .pill{font-size:12px;padding:11px 16px}.path-section{padding:47px 0 95px}.paths-header h2{font-size:35px}.paths-header p{font-size:13px}}
+
+/* Hero repair: never use an image containing text as a CSS backdrop.
+   Use only the separate portrait and keep the actual heading in HTML. */
+@media(min-width:901px){.hero-photo{width:43%;right:0}.hero-copy{width:57%;max-width:710px}.hero h1{font-size:clamp(35px,3.9vw,60px)}}
+@media(min-width:721px) and (max-width:900px){.hero-photo{width:43%;right:0}.hero-copy{width:56%}.hero h1{font-size:clamp(32px,4.3vw,46px)}}
+@media(max-width:720px){.hero-photo{width:58%;height:300px;top:auto;bottom:0;right:0;opacity:.95;background:none!important;mask-image:none!important}.hero-photo img{display:block!important;object-fit:contain;object-position:right bottom}.hero-copy{width:100%;max-width:100%;padding-bottom:310px}.hero h1{max-width:100%}}
+@media(max-width:530px){.hero-photo{width:78%;height:315px;right:-5%;background:none!important;opacity:.92}.hero-copy{padding-bottom:315px}.hero h1{font-size:clamp(35px,9vw,45px)}}
