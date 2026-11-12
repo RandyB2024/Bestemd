@@ -12,13 +12,13 @@
 .hero .pill{padding:14px 26px;box-shadow:0 5px 16px #0a39400c}.hero .pill-soft{background:#075162;border-color:#075162}
 .hero .pill-outline{background:#ffffffdc;color:#073946!important;border-color:#0d6772!important}
 .hero-photo{position:absolute;z-index:2;inset:auto 0 0 auto;width:49%;height:100%;overflow:visible;pointer-events:none}
-.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 34%;filter:none;mask-image:linear-gradient(90deg,transparent,#000 19%,#000 100%)}
+.hero-photo img{width:100%;height:100%;object-fit:contain;object-position:right bottom;filter:none}
 .hero-photo:after{display:none}.hero-strap{display:none}
 .shortcut-wrap{margin-top:-44px}.shortcuts{gap:13px}.shortcut{min-height:98px;border-radius:14px;box-shadow:0 14px 35px #1637431c}
 .shortcut-icon{background:transparent;color:#075463;width:35px}.shortcut-arrow{display:grid;place-items:center;background:#e2efea;color:#075563;border-radius:50%;width:35px;height:35px;font-size:20px;flex:none}
 .shortcut strong{font-size:15px}.shortcut small{font-size:12px}
 .book-spotlight{margin-top:35px;min-height:316px;grid-template-columns:300px 1fr;gap:38px;background:linear-gradient(105deg,#f1f6f5 0%,#f8f8f6 46%,#f5e3cecc 79%,#d2c09a88 100%);position:relative;border-radius:20px}
-.book-spotlight:before{content:'';position:absolute;inset:0 0 0 50%;background:linear-gradient(90deg,#fbfaf9 4%,#fbfaf9ca 35%,transparent 83%);z-index:0}
+.book-spotlight:before{content:'';position:absolute;inset:0 0 0 50%;background-image:linear-gradient(90deg,#fbfaf9 4%,#fbfaf9ca 35%,transparent 83%),url('https://d2ol7oe51mr4n9.cloudfront.net/user_3L1Dk2QcsFf7KL82FSvtUquBeEP/2c6b3bd6-5903-4533-9092-c4b2597f4809.png');background-size:cover;background-position:center right;z-index:0}
 .book-spotlight img{position:relative;z-index:1;height:308px;object-fit:contain;padding:12px 10px 0 32px}
 .book-content{position:relative;z-index:1;padding:35px 38px 40px 0}.book-content .kicker{font-size:11px;margin-bottom:8px}.book-content h2{font-size:clamp(28px,3.2vw,45px);margin:5px 0 15px}.book-content p{max-width:590px;font-size:15px;color:#4a626c;margin-bottom:19px}.book-info .pill{font-size:13px}
 .intro{padding:90px 0 27px}.services{gap:19px}.service{background:#fff;border:1px solid #e3e9e6;border-radius:12px;min-height:205px}.feature{margin-top:73px}
