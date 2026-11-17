@@ -1,0 +1,95 @@
+/* BESTEMD authentic photo design. All photographs supplied by the client.
+   This stylesheet replaces the screenshot hero and trajectory image crops. */
+:root{--ed-ink:#073e49;--ed-cream:#fff8f1;--ed-sage:#dcefe7}
+html{scroll-padding-top:78px}
+.ed-hero{
+  position:relative;isolation:isolate;background:linear-gradient(115deg,#f2f6f8 0%,#fff3e8 47%,#f7e5cc 100%);
+  min-height:560px;overflow:hidden
+}
+.ed-hero:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 72% 74%,#ecba7b65,transparent 43%),
+  radial-gradient(ellipse at 12% 100%,#a8c0ae66,transparent 45%)}
+.ed-hero:after{content:"";position:absolute;z-index:0;inset:auto 0 0;height:94px;
+  pointer-events:none;background:linear-gradient(0deg,#8a9d8d47,transparent)}
+.ed-hero>.shell{position:relative;z-index:1;display:grid;grid-template-columns:1.13fr .87fr;align-items:center;gap:clamp(20px,3vw,56px);min-height:560px}
+.ed-hero-copy{padding:66px 0 86px;align-self:center}
+.ed-hero-copy .kicker{font-size:11px;letter-spacing:.12em;color:#225960;margin-bottom:17px}
+.ed-hero-copy h1{font-size:clamp(41px,4.5vw,68px);line-height:1.09;letter-spacing:-.058em;color:var(--ed-ink);max-width:750px;margin:0 0 20px}
+.ed-hero-copy>p{font-size:17px;color:#47636c;line-height:1.62;max-width:510px}
+.ed-hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:27px}
+.ed-hero-actions .pill{padding:13px 23px;font-size:13px;border-radius:999px}
+.ed-hero-actions .pill-outline{color:#0b5260!important;border-color:#0b5260;background:#fff}
+.ed-hero-portrait{position:relative;align-self:end;height:min(505px,43vw);min-height:385px;display:grid;align-items:end;overflow:hidden;
+  border-radius:42% 42% 14px 14px;background:#f1f2f0;
+  box-shadow:0 17px 46px #123e4820;isolation:isolate}
+.ed-hero-portrait:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 50% 110%,#d6e6db,transparent 65%)}
+.ed-hero-portrait img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;object-position:50% 20%;
+  filter:none;max-width:none;display:block}
+.ed-hero-person{position:absolute;z-index:2;bottom:25px;right:25px;left:25px;padding:10px 14px;
+  border:1px solid #ffffff99;border-radius:9px;background:#fffffff0;backdrop-filter:blur(8px);
+  color:#0a4851;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.ed-hero-person strong{font-size:13px;white-space:nowrap}
+.ed-hero-person small{font-size:11px;color:#41646c;text-align:right}
+.ed-hero .ed-hero-photo-accent{position:absolute;z-index:0;top:13%;right:-12%;width:350px;height:350px;
+  border:1px solid #d0b69a9c;border-radius:50%;pointer-events:none}
+.ed-hero .ed-hero-photo-accent:after{content:"";position:absolute;inset:29px;border:1px solid #d0b69a80;border-radius:50%}
+.shortcut-wrap{margin-top:-33px!important;position:relative;z-index:8}
+.shortcut{border:1px solid #d9e5df;box-shadow:0 16px 36px #1441481b}
+.ed-path-photo{width:100%;height:100%;object-fit:cover;display:block}
+.path-section .path-image{aspect-ratio:1.45!important;height:auto!important;position:relative;background:none!important;background-image:none!important;
+  overflow:hidden;border-radius:13px 13px 0 0}
+.path-section .path-image img{width:100%;height:100%;max-width:none;aspect-ratio:1.45;object-fit:cover;display:block}
+.path-section .path-card:nth-child(1) .path-image img{object-position:50% 52%}
+.path-section .path-card:nth-child(2) .path-image img{object-position:50% 20%}
+.path-section .path-card:nth-child(3) .path-image img{object-position:50% 51%}
+.path-section .path-card{overflow:hidden;background:#fff;border:1px solid #e2e9e3;border-radius:14px;box-shadow:0 14px 32px #143c4712}
+.path-section .path-copy{padding:22px 24px 26px}
+.path-section .path-copy h3{font-size:clamp(21px,2vw,28px)}
+.path-section .path-copy p{font-size:14px;line-height:1.6}
+.path-section .path-image:after{content:none!important}
+.path-section:after{background:linear-gradient(to top,#e8e5dcad,transparent)!important}
+#over .video-thumb img{object-position:50% 35%}
+@media(max-width:1000px){
+ .ed-hero>.shell{grid-template-columns:1.05fr .95fr}
+ .ed-hero-copy h1{font-size:clamp(39px,4.6vw,55px)}
+ .ed-hero-portrait{height:440px;min-height:350px}
+}
+@media(max-width:760px){
+ .ed-hero{min-height:0}
+ .ed-hero>.shell{grid-template-columns:1fr;gap:18px;min-height:0}
+ .ed-hero-copy{padding:52px 0 0;align-self:start}
+ .ed-hero-copy h1{font-size:clamp(41px,7vw,57px);max-width:650px;margin-bottom:16px}
+ .ed-hero-copy>p{max-width:620px;font-size:16px}
+ .ed-hero-actions{margin-top:23px}
+ .ed-hero-portrait{width:min(530px,100%);height:390px;min-height:0;align-self:center;justify-self:center;margin:6px 0 0;
+   border-radius:42% 42% 10px 10px}
+ .ed-hero-photo-accent{display:none}
+ .shortcut-wrap{margin-top:-12px!important}
+ .path-section .path-grid{grid-template-columns:1fr!important;max-width:550px;margin:auto}
+ .path-section .path-image{aspect-ratio:1.55!important}
+ .path-section .path-image img{aspect-ratio:1.55}
+ .path-section .path-card{max-width:550px}
+ #portaal .feature-tabs{display:flex;flex-wrap:wrap}
+ #over .video-thumb{width:100%}
+}
+@media(max-width:470px){
+ .ed-hero>.shell{width:calc(100% - 34px)}
+ .ed-hero-copy{padding:37px 0 0}
+ .ed-hero-copy .kicker{font-size:10px}
+ .ed-hero-copy h1{font-size:clamp(36px,9.5vw,45px)}
+ .ed-hero-copy>p{font-size:14px}
+ .ed-hero-actions{gap:9px}
+ .ed-hero-actions .pill{font-size:12px;padding:12px 15px}
+ .ed-hero-portrait{height:315px;width:min(100%,375px)}
+ .ed-hero-person{left:14px;right:14px;bottom:13px;padding:8px 10px}
+ .ed-hero-person strong{font-size:12px}
+ .ed-hero-person small{font-size:10px}
+ .shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .shortcut{min-height:95px}
+ .path-section .path-image,.path-section .path-image img{aspect-ratio:1.22!important}
+ #diensten{padding-inline:17px!important}
+ #portaal{padding-inline:17px!important}
+ #over>.about-inner{width:calc(100% - 34px)}
+ .cta-grid{grid-template-columns:1fr!important}
+}
