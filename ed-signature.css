@@ -1,0 +1,19 @@
+/* Ed's handgeschreven naam: transparant beeld over de bestaande zonsondergang. */
+.ed-hero>.shell{position:relative}
+.ed-signature{
+  position:absolute;z-index:5;right:-1.2%;top:14%;
+  width:clamp(180px,17.2vw,285px);
+  height:auto;pointer-events:none;
+  filter:drop-shadow(0 2px 1px rgba(255,255,255,.28));
+}
+.ed-signature img{display:block;width:100%;height:auto;object-fit:contain}
+@media (min-width:761px) and (max-width:1080px){
+ .ed-signature{right:-2%;top:11%;width:clamp(155px,18vw,205px)}
+}
+@media (max-width:760px){
+ .ed-hero>.shell{position:relative}
+ .ed-signature{top:auto;bottom:250px;right:0;width:min(37%,190px)}
+}
+@media (max-width:470px){
+ .ed-signature{bottom:207px;right:-2%;width:38%;max-width:160px}
+}
